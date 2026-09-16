@@ -1,420 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0a09">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vetrix AI">
 <title>Vetrix AI</title>
-
 <link rel="icon" type="image/png" href="vetrix-favicon-novo.png">
-<link rel="shortcut icon" type="image/png" href="vetrix-favicon-novo.png">
-
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#11100f;
-    color:#f7f2ed;
-}
-
-/* NAVBAR */
-
-nav{
-    height:82px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 7%;
-    background:#171411;
-    border-bottom:1px solid #463326;
-}
-
-.logo-area{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:22px;
-    font-weight:bold;
-    letter-spacing:1px;
-}
-
-.logo-area img{
-    width:55px;
-    height:55px;
-    object-fit:contain;
-}
-
-.links{
-    display:flex;
-    gap:30px;
-}
-
-.links a{
-    color:#c2b5aa;
-    text-decoration:none;
-    font-size:15px;
-    transition:.2s;
-}
-
-.links a:hover{
-    color:#ff7a1a;
-}
-
-.nav-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.nav-buttons a{
-    text-decoration:none;
-    color:#f7f2ed;
-    border:1px solid #584031;
-    padding:10px 18px;
-    border-radius:9px;
-    font-size:14px;
-}
-
-.nav-buttons .enter{
-    background:#ff7a1a;
-    color:#1a1009;
-    border-color:#ff7a1a;
-    font-weight:bold;
-}
-
-/* HERO */
-
-.hero{
-    min-height:650px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:70px 20px;
-    background:
-        radial-gradient(circle at center, #292019 0%, #171411 38%, #11100f 75%);
-}
-
-.hero img{
-    width:190px;
-    height:190px;
-    object-fit:contain;
-    margin-bottom:25px;
-    filter:drop-shadow(0 10px 30px rgba(255,122,26,.10));
-}
-
-.hero h1{
-    font-size:58px;
-    letter-spacing:3px;
-    margin-bottom:18px;
-}
-
-.hero p{
-    max-width:700px;
-    color:#c2b5aa;
-    font-size:18px;
-    line-height:1.7;
-}
-
-.main-button{
-    display:inline-block;
-    margin-top:32px;
-    padding:15px 30px;
-    background:#ff7a1a;
-    color:#1a1009;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
-    transition:.2s;
-}
-
-.main-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 35px rgba(255,122,26,.20);
-}
-
-/* SEÇÕES */
-
-section{
-    padding:90px 7%;
-}
-
-.section-title{
-    text-align:center;
-    font-size:34px;
-    margin-bottom:45px;
-}
-
-/* CARDS */
-
-.use-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.card{
-    background:#1d1814;
-    border:1px solid #4a3526;
-    border-radius:15px;
-    padding:28px;
-    min-height:175px;
-    transition:.25s;
-    box-shadow:0 8px 25px rgba(0,0,0,.12);
-}
-
-.card:hover{
-    border-color:#ff7a1a;
-    transform:translateY(-4px);
-    background:#211b17;
-}
-
-.card h3{
-    margin-bottom:12px;
-    font-size:20px;
-}
-
-.card p{
-    color:#bcaea3;
-    line-height:1.6;
-    font-size:14px;
-}
-
-/* RECURSOS */
-
-.resources{
-    background:#171411;
-    border-top:1px solid #30241c;
-    border-bottom:1px solid #30241c;
-}
-
-.resource-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-/* SOBRE */
-
-.about{
-    text-align:center;
-    background:#11100f;
-}
-
-.about p{
-    max-width:760px;
-    margin:auto;
-    color:#bcaea3;
-    line-height:1.8;
-}
-
-/* FOOTER */
-
-footer{
-    border-top:1px solid #3a2b21;
-    padding:35px 7%;
-    text-align:center;
-    color:#9d8f84;
-    background:#171411;
-}
-
-/* RESPONSIVO */
-
-@media(max-width:900px){
-
-    .links{
-        display:none;
-    }
-
-    .use-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .resource-grid{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:550px){
-
-    .use-grid{
-        grid-template-columns:1fr;
-    }
-
-    .nav-buttons{
-        display:none;
-    }
-
-    .hero h1{
-        font-size:40px;
-    }
-
-    .hero img{
-        width:150px;
-        height:150px;
-    }
+:root{--bg:#0b0a09;--panel:#12100e;--border:#33271e;--orange:#ff7a1a;--text:#f7f2ed;--muted:#aaa099}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.top{height:76px;padding:0 34px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;background:rgba(11,10,9,.95);backdrop-filter:blur(16px);border-bottom:1px solid #241c16}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}.brand img{width:38px;height:38px;object-fit:contain}.ai{color:var(--orange)}
+.nav{display:flex;gap:26px;color:#bdb4ad;font-size:14px}.nav a:first-child{color:var(--orange)}
+.actions{display:flex;gap:9px}.btn{border:1px solid var(--border);background:#15120f;color:var(--text);border-radius:11px;padding:9px 14px;font-weight:700}.primary{background:var(--orange);color:#1b0d04;border-color:var(--orange)}
+.hero{max-width:900px;margin:auto;text-align:center;padding:65px 20px 38px}.hero img{width:105px;height:105px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(255,122,26,.22))}.hero h1{font-size:clamp(45px,8vw,76px);line-height:1;margin:17px 0;letter-spacing:-2px}.hero p{max-width:650px;margin:auto;color:var(--muted);font-size:18px;line-height:1.55}.cta{margin-top:27px;border:0;border-radius:14px;padding:15px 24px;background:var(--orange);color:#1b0d04;font-weight:800}
+.main{max-width:1000px;margin:auto;padding:18px 20px 110px}.greet{background:linear-gradient(135deg,#17130f,#100e0c);border:1px solid var(--border);border-radius:20px;padding:22px;margin-bottom:22px}.greet small{color:var(--orange);font-weight:800}.greet h2{margin:7px 0;font-size:27px}.greet p{margin:0;color:var(--muted)}
+h2.section{font-size:20px;margin:23px 0 12px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.card{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:17px;text-align:left;min-height:125px;color:var(--text)}.card .ico{font-size:24px}.card h3{margin:10px 0 5px;font-size:16px}.card p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.cont{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:17px}.cont h3{margin:0 0 4px}.cont p{margin:0;color:var(--muted);font-size:13px}.cont button{border:1px solid var(--orange);background:transparent;color:var(--orange);border-radius:10px;padding:9px 12px;font-weight:800}
+.resources{display:flex;gap:9px;overflow:auto}.res{min-width:110px;border:1px solid var(--border);background:var(--panel);color:#d5cdc7;border-radius:14px;padding:14px 10px;text-align:center}.res span{display:block;font-size:21px;margin-bottom:6px}
+.bottom{display:none}
+@media(max-width:760px){
+.top{height:66px;padding:0 15px}.brand{font-size:17px}.brand img{width:32px;height:32px}.nav{display:none}.actions .about{display:none}.btn{padding:8px 12px;font-size:13px}
+.hero{padding:40px 18px 26px}.hero img{width:82px;height:82px}.hero h1{font-size:45px;margin:13px 0}.hero p{font-size:15px}.cta{width:100%;margin-top:22px}
+.main{padding:9px 15px 105px}.greet{padding:19px;border-radius:18px}.greet h2{font-size:24px}.quick{grid-template-columns:repeat(2,1fr);gap:9px}.card{padding:14px;min-height:126px}.cont{padding:15px}.cont button{white-space:nowrap}.bottom{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:rgba(12,10,9,.97);border-top:1px solid #2b2119;justify-content:space-around}.bottom button{border:0;background:transparent;color:#8f8781;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px}.bottom span{font-size:20px}.bottom .sel{color:var(--orange)}
 }
 </style>
 </head>
-
 <body>
-
-<nav>
-
-    <div class="logo-area">
-        <img src="vetrix-logo-final.png" alt="Vetrix AI">
-        <span>VETRIX AI</span>
-    </div>
-
-    <div class="links">
-        <a href="#">Início</a>
-        <a href="chat.html">Chat</a>
-        <a href="#recursos">Recursos</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#criadores">Criadores</a>
-    </div>
-
-    <div class="nav-buttons">
-        <a href="#sobre">Sobre</a>
-        <a href="chat.html" class="enter">Entrar</a>
-    </div>
-
-</nav>
-
-<main>
-
+<header class="top">
+<a class="brand" href="index.html"><img src="vetrix-logo-final.png" alt="Vetrix AI"><span>VETRIX <span class="ai">AI</span></span></a>
+<nav class="nav"><a href="index.html">Início</a><a href="chat.html">Chat</a><a href="#recursos">Recursos</a><a href="#sobre">Sobre</a></nav>
+<div class="actions"><button class="btn about" onclick="document.getElementById('sobre').scrollIntoView()">Sobre</button><button class="btn" onclick="location.href='chat.html'">Entrar</button></div>
+</header>
 <section class="hero">
-
-    <img src="vetrix-logo-final.png" alt="Logo Vetrix AI">
-
-    <h1>VETRIX AI</h1>
-
-    <p>
-        Uma inteligência artificial criada para ajudar você
-        a aprender, criar, resolver e ir mais longe.
-    </p>
-
-    <a href="chat.html" class="main-button">
-        Começar agora
-    </a>
-
+<img src="vetrix-logo-final.png" alt="Logo Vetrix AI">
+<h1>VETRIX <span class="ai">AI</span></h1>
+<p>Uma inteligência artificial criada para ajudar você a aprender, criar, resolver e ir mais longe.</p>
+<button class="cta" onclick="location.href='chat.html'">Começar agora →</button>
 </section>
-
-<section>
-
-    <h2 class="section-title">
-        Como você pretende usar o Vetrix?
-    </h2>
-
-    <div class="use-grid">
-
-        <div class="card">
-            <h3>Fundamental II</h3>
-            <p>
-                Estudos, trabalhos, exercícios e explicações
-                para o Fundamental II.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Ensino Médio</h3>
-            <p>
-                Ajuda para matérias, provas, trabalhos e
-                preparação para seus estudos.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Faculdade</h3>
-            <p>
-                Pesquisas, estudos, organização e auxílio
-                em projetos acadêmicos.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Não sou estudante</h3>
-            <p>
-                Use o Vetrix para trabalho, criatividade,
-                tecnologia, projetos e muito mais.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="resources" id="recursos">
-
-    <h2 class="section-title">Recursos</h2>
-
-    <div class="resource-grid">
-
-        <div class="card">
-            <h3>Jogos</h3>
-            <p>Ideias, informações e ajuda para seus jogos favoritos.</p>
-        </div>
-
-        <div class="card">
-            <h3>Memes</h3>
-            <p>Crie ideias divertidas e conteúdos para compartilhar.</p>
-        </div>
-
-        <div class="card">
-            <h3>Eventos</h3>
-            <p>Organize ideias, eventos e projetos.</p>
-        </div>
-
-        <div class="card">
-            <h3>Shows</h3>
-            <p>Informações e ideias sobre shows e artistas.</p>
-        </div>
-
-        <div class="card">
-            <h3>Feriados</h3>
-            <p>Consulte informações sobre datas e feriados.</p>
-        </div>
-
-        <div class="card">
-            <h3>Recursos do computador</h3>
-            <p>Ajuda com tecnologia, computadores e programação.</p>
-        </div>
-
-        <div class="card">
-            <h3>E muito mais!</h3>
-            <p>Explore tudo o que o Vetrix pode fazer.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="about" id="sobre">
-
-    <h2 class="section-title">Sobre o Vetrix</h2>
-
-    <p>
-        O Vetrix AI é uma inteligência artificial criada para
-        ajudar pessoas a aprender, criar, pesquisar, resolver
-        problemas e desenvolver novas ideias.
-    </p>
-
-</section>
-
+<main class="main">
+<div class="greet"><small>SEU ESPAÇO VETRIX</small><h2>Olá, Luís 👋</h2><p>Estude. Crie. Pesquise. Resolva.</p></div>
+<h2 class="section">Ações rápidas</h2>
+<div class="quick">
+<button class="card" onclick="go('Explique este assunto para mim de forma simples.')"><div class="ico">📚</div><h3>Estudar</h3><p>Explicações, resumos e exercícios.</p></button>
+<button class="card" onclick="go('Me ajude a criar uma ideia de projeto.')"><div class="ico">✨</div><h3>Criar</h3><p>Textos, ideias, projetos e muito mais.</p></button>
+<button class="card" onclick="go('Pesquise e me explique este assunto.')"><div class="ico">🔎</div><h3>Pesquisar</h3><p>Encontre e organize informações.</p></button>
+<button class="card" onclick="go('Me ajude com um código ou projeto de programação.')"><div class="ico">💻</div><h3>Programar</h3><p>Código, sites e tecnologia.</p></button>
+</div>
+<h2 class="section">Continue de onde parou</h2>
+<div class="cont"><div><h3>Trabalho de Ciências</h3><p>Última atividade: ontem</p></div><button onclick="go('Quero continuar meu Trabalho de Ciências.')">Continuar →</button></div>
+<h2 class="section" id="recursos">Recursos</h2>
+<div class="resources">
+<button class="res" onclick="go('Quero conversar sobre jogos.')"><span>🎮</span>Jogos</button><button class="res" onclick="go('Me dê ideias de memes.')"><span>😂</span>Memes</button><button class="res" onclick="go('Me ajude a organizar um evento.')"><span>📅</span>Eventos</button><button class="res" onclick="go('Quero saber sobre shows.')"><span>🎤</span>Shows</button><button class="res" onclick="go('Me ajude com recursos do computador.')"><span>🖥️</span>Computador</button><button class="res" onclick="go('O que mais posso fazer com o Vetrix?')"><span>＋</span>E muito mais!</button>
+</div>
+<p id="sobre" style="margin:28px 0 0;color:var(--muted);font-size:13px"><b style="color:var(--text)">Vetrix AI</b> — aprender, criar, pesquisar e resolver.</p>
 </main>
-
-<footer id="criadores">
-    Feito por Luís Felipe Lira e Daniel Perez.
-</footer>
-
+<nav class="bottom"><button class="sel" onclick="location.href='index.html'"><span>⌂</span>Início</button><button onclick="location.href='chat.html'"><span>◌</span>Chat</button><button onclick="alert('Histórico será conectado na próxima etapa.')"><span>◷</span>Histórico</button><button onclick="alert('Configurações serão conectadas na próxima etapa.')"><span>⚙</span>Configurações</button><button onclick="alert('Ajuda será conectada na próxima etapa.')"><span>?</span>Ajuda</button></nav>
+<script>function go(t){localStorage.setItem('vetrixMensagemInicial',t);location.href='chat.html'}</script>
 </body>
 </html>
