@@ -1,714 +1,531 @@
+```html
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurações • Vetrix AI</title>
-  <link rel="icon" href="vetrix-favicon-novo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurações - Vetrix AI</title>
+<link rel="icon" href="vetrix-favicon-novo.png">
 
-  <style>
-    :root {
-      --bg: #090807;
-      --panel: #110d0a;
-      --panel2: #15100c;
-      --border: #3a2518;
-      --orange: #ff7a1a;
-      --orange-light: #ff9748;
-      --text: #f4eee8;
-      --dim: #a99b8f;
-      --danger: #e05252;
-    }
+<style>
+:root{
+  --bg:#090807;
+  --panel:#110d0a;
+  --panel2:#15100c;
+  --border:#3a2518;
+  --orange:#ff7a1a;
+  --orange-light:#ff9748;
+  --text:#f4eee8;
+  --dim:#a99b8f;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
 
-    /* BARRA LATERAL */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 245px;
-      height: 100vh;
-      background: #0b0908;
-      border-right: 1px solid var(--border);
-      padding: 22px 15px;
-      display: flex;
-      flex-direction: column;
-      z-index: 10;
-    }
+.app{
+  display:flex;
+  min-height:100vh;
+}
 
-    .sidebar-brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 5px 9px 25px;
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 18px;
-    }
+/* SIDEBAR */
 
-    .sidebar-brand img {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
-    }
+.sidebar{
+  width:245px;
+  min-height:100vh;
+  background:#0d0a08;
+  border-right:1px solid var(--border);
+  padding:22px 16px;
+  display:flex;
+  flex-direction:column;
+}
 
-    .sidebar-brand span {
-      color: var(--orange);
-      font-size: 21px;
-      font-weight: 700;
-      text-decoration: none;
-    }
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 8px 28px;
+}
 
-    .side-button {
-      width: 100%;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text);
-      padding: 12px 13px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: left;
-      font-size: 14px;
-      margin-bottom: 5px;
-      transition: 0.2s;
-    }
+.logo-area img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+}
 
-    .side-button:hover {
-      background: var(--panel);
-      border-color: var(--border);
-      color: var(--orange);
-    }
+.brand-name{
+  color:var(--orange) !important;
+  text-decoration:none !important;
+  font-size:22px;
+  font-weight:700;
+}
 
-    .side-button.active {
-      background: var(--panel);
-      border-color: var(--border);
-      color: var(--orange);
-    }
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
 
-    .sidebar-spacer {
-      flex: 1;
-    }
+.menu a{
+  color:var(--dim);
+  text-decoration:none;
+  padding:13px 14px;
+  border-radius:10px;
+  font-size:15px;
+}
 
-    /* CONTEÚDO */
-    .main {
-      margin-left: 245px;
-      min-height: 100vh;
-    }
+.menu a:hover{
+  background:#19110c;
+  color:var(--text);
+}
 
-    header {
-      height: 76px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 28px;
-      background: #0b0908;
-    }
+.menu .active{
+  background:#21150e;
+  color:var(--orange-light);
+}
 
-    .page-title {
-      color: var(--text);
-      font-size: 17px;
-      font-weight: 600;
-    }
+.sidebar-bottom{
+  margin-top:auto;
+}
 
-    .page-title span {
-      color: var(--orange);
-    }
+.sidebar-bottom a{
+  display:block;
+  border:1px solid var(--border);
+  padding:12px;
+  border-radius:10px;
+  color:var(--dim);
+  text-decoration:none;
+  text-align:center;
+}
 
-    .container {
-      width: min(900px, calc(100% - 40px));
-      margin: 35px auto 60px;
-    }
+.sidebar-bottom a:hover{
+  border-color:var(--orange);
+  color:var(--text);
+}
 
-    .title {
-      margin-bottom: 30px;
-    }
+/* CONFIGURAÇÕES */
 
-    .title h1 {
-      font-size: 31px;
-      margin-bottom: 7px;
-    }
+.content{
+  flex:1;
+  padding:55px 45px;
+  overflow:auto;
+}
 
-    .title p {
-      color: var(--dim);
-      font-size: 15px;
-    }
+.container{
+  max-width:850px;
+  margin:auto;
+}
 
-    .section {
-      margin-bottom: 28px;
-    }
+h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
 
-    .section-title {
-      color: var(--dim);
-      font-size: 13px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin: 0 0 9px 7px;
-    }
+.subtitle{
+  color:var(--dim);
+  margin-bottom:35px;
+}
 
-    .settings-box {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      overflow: hidden;
-    }
+.section{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:18px;
+  overflow:hidden;
+}
 
-    .setting {
-      min-height: 70px;
-      padding: 15px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      border-bottom: 1px solid var(--border);
-    }
+.section-title{
+  padding:20px;
+  border-bottom:1px solid var(--border);
+  font-size:17px;
+  font-weight:bold;
+}
 
-    .setting:last-child {
-      border-bottom: none;
-    }
+.option{
+  padding:19px 20px;
+  border-bottom:1px solid var(--border);
+}
 
-    .setting-name {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
+.option:last-child{
+  border-bottom:none;
+}
 
-    .setting-description {
-      color: var(--dim);
-      font-size: 13px;
-      line-height: 1.4;
-    }
+.option-title{
+  font-size:15px;
+  margin-bottom:6px;
+}
 
-    .select {
-      min-width: 180px;
-      padding: 10px 12px;
-      border-radius: 9px;
-      border: 1px solid var(--border);
-      background: var(--panel2);
-      color: var(--text);
-      outline: none;
-      cursor: pointer;
-    }
+.option-description{
+  color:var(--dim);
+  font-size:13px;
+  margin-bottom:14px;
+}
 
-    .select:focus {
-      border-color: var(--orange);
-    }
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
 
-    .button {
-      border: 1px solid var(--border);
-      background: var(--panel2);
-      color: var(--text);
-      padding: 10px 15px;
-      border-radius: 9px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
+.choice{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--dim);
+  padding:10px 14px;
+  border-radius:9px;
+  cursor:pointer;
+}
 
-    .button:hover {
-      border-color: var(--orange);
-      color: var(--orange);
-    }
+.choice:hover{
+  border-color:var(--orange);
+  color:var(--text);
+}
 
-    .button.orange {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: #170b04;
-      font-weight: bold;
-    }
+.choice.selected{
+  background:#2a180d;
+  border-color:var(--orange);
+  color:var(--orange-light);
+}
 
-    .button.orange:hover {
-      background: var(--orange-light);
-    }
+.back{
+  display:inline-block;
+  margin-bottom:30px;
+  color:var(--dim);
+  text-decoration:none;
+}
 
-    .button.danger {
-      color: var(--danger);
-      border-color: #542323;
-    }
+.back:hover{
+  color:var(--orange-light);
+}
 
-    .button.danger:hover {
-      background: #241010;
-      border-color: var(--danger);
-    }
+.save{
+  margin-top:10px;
+  background:var(--orange);
+  color:#160b04;
+  border:none;
+  padding:12px 22px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .toggle {
-      width: 48px;
-      height: 27px;
-      border-radius: 30px;
-      background: #33271f;
-      border: 1px solid var(--border);
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+.save:hover{
+  background:var(--orange-light);
+}
 
-    .toggle::after {
-      content: "";
-      position: absolute;
-      width: 21px;
-      height: 21px;
-      border-radius: 50%;
-      background: #a99b8f;
-      top: 2px;
-      left: 3px;
-      transition: 0.2s;
-    }
+.status{
+  display:inline-block;
+  margin-left:12px;
+  color:#8bcf8b;
+  font-size:14px;
+}
 
-    .toggle.active {
-      background: var(--orange);
-    }
+@media(max-width:700px){
 
-    .toggle.active::after {
-      background: #170b04;
-      left: 22px;
-    }
+  .sidebar{
+    width:190px;
+  }
 
-    @media (max-width: 700px) {
-      .sidebar {
-        width: 205px;
-      }
+  .content{
+    padding:35px 20px;
+  }
 
-      .main {
-        margin-left: 205px;
-      }
-    }
+  .brand-name{
+    font-size:18px;
+  }
 
-    @media (max-width: 560px) {
-      .sidebar {
-        width: 68px;
-        padding: 18px 8px;
-      }
-
-      .sidebar-brand {
-        justify-content: center;
-        padding: 5px 0 18px;
-      }
-
-      .sidebar-brand span {
-        display: none;
-      }
-
-      .side-button {
-        text-align: center;
-        padding: 12px 5px;
-        font-size: 0;
-      }
-
-      .main {
-        margin-left: 68px;
-      }
-
-      .container {
-        width: calc(100% - 20px);
-      }
-
-      .setting {
-        align-items: flex-start;
-      }
-
-      .select {
-        min-width: 125px;
-      }
-    }
-  </style>
-
+}
+</style>
 </head>
 
 <body>
 
+<div class="app">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
 
-```
-<a href="chat.html" class="sidebar-brand">
-  <img src="vetrix-favicon-novo.png" alt="Vetrix">
-  <span>Vetrix AI</span>
-</a>
+    <div class="logo-area">
+      <img src="vetrix-favicon-novo.png" alt="Vetrix">
+      <a href="chat.html" class="brand-name">Vetrix AI</a>
+    </div>
 
-<button class="side-button" onclick="window.location.href='chat.html'">
-  ← Voltar ao chat
-</button>
+    <nav class="menu">
 
-<button class="side-button" onclick="alert('O histórico de conversas será conectado à conta do Vetrix.')">
-  🕘 Histórico
-</button>
+      <a href="chat.html">
+        ← Voltar para o chat
+      </a>
 
-<button class="side-button" onclick="alert('Central de ajuda do Vetrix.')">
-  ❔ Ajuda
-</button>
+      <a href="configuracoes.html" class="active">
+        ⚙ Configurações
+      </a>
 
-<button class="side-button active">
-  ⚙️ Configurações
-</button>
+    </nav>
 
-<div class="sidebar-spacer"></div>
-
-<button class="side-button" onclick="toggleMode()">
-  🎓 Modo Estudo
-</button>
-```
+    <div class="sidebar-bottom">
+      <a href="chat.html">
+        ❔ Ajuda
+      </a>
+    </div>
 
   </aside>
 
-  <main class="main">
 
-```
-<header>
-  <div class="page-title">
-    <span>Vetrix AI</span> • Configurações
-  </div>
-</header>
+  <!-- CONTEÚDO -->
+  <main class="content">
 
-<div class="container">
+    <div class="container">
 
-  <div class="title">
-    <h1>Configurações</h1>
-    <p>Personalize sua experiência no Vetrix.</p>
-  </div>
+      <a class="back" href="chat.html">
+        ← Voltar
+      </a>
 
-  <!-- APARÊNCIA -->
-  <section class="section">
-    <div class="section-title">Aparência</div>
+      <h1>Configurações</h1>
 
-    <div class="settings-box">
+      <p class="subtitle">
+        Personalize o Vetrix AI do seu jeito.
+      </p>
 
-      <div class="setting">
-        <div>
-          <div class="setting-name">Tema</div>
-          <div class="setting-description">
-            Escolha entre modo escuro e modo claro.
-          </div>
+
+      <!-- APARÊNCIA -->
+
+      <section class="section">
+
+        <div class="section-title">
+          Aparência
         </div>
 
-        <select class="select" id="themeSelect" onchange="changeTheme()">
-          <option value="dark">Modo escuro</option>
-          <option value="light">Modo claro</option>
-        </select>
-      </div>
+        <div class="option">
+
+          <div class="option-title">
+            Tema
+          </div>
+
+          <div class="option-description">
+            Escolha entre o modo escuro e o modo claro.
+          </div>
+
+          <div class="buttons">
+
+            <button class="choice" id="darkBtn" onclick="setTheme('dark')">
+              🌙 Modo escuro
+            </button>
+
+            <button class="choice" id="lightBtn" onclick="setTheme('light')">
+              ☀️ Modo claro
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ESTUDOS -->
+
+      <section class="section">
+
+        <div class="section-title">
+          Estudos
+        </div>
+
+        <div class="option">
+
+          <div class="option-title">
+            Sala / curso
+          </div>
+
+          <div class="option-description">
+            Escolha seu nível de estudo.
+          </div>
+
+          <div class="buttons">
+
+            <button class="choice" onclick="select('level','Fundamental II',this)">
+              Fundamental II
+            </button>
+
+            <button class="choice" onclick="select('level','Ensino Médio',this)">
+              Ensino Médio
+            </button>
+
+            <button class="choice" onclick="select('level','Faculdade',this)">
+              Faculdade
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="option">
+
+          <div class="option-title">
+            Motivo de usar o Vetrix
+          </div>
+
+          <div class="option-description">
+            Diga ao Vetrix como você pretende utilizá-lo.
+          </div>
+
+          <div class="buttons">
+
+            <button class="choice" onclick="select('reason','Fundamental II',this)">
+              Fundamental II
+            </button>
+
+            <button class="choice" onclick="select('reason','Ensino Médio',this)">
+              Ensino Médio
+            </button>
+
+            <button class="choice" onclick="select('reason','Faculdade',this)">
+              Faculdade
+            </button>
+
+            <button class="choice" onclick="select('reason','Não sou estudante',this)">
+              Não sou estudante
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <button class="save" onclick="saveSettings()">
+        Salvar configurações
+      </button>
+
+      <span class="status" id="status"></span>
 
     </div>
-  </section>
-
-  <!-- ESTUDOS -->
-  <section class="section">
-    <div class="section-title">Estudos</div>
-
-    <div class="settings-box">
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Sala / curso</div>
-          <div class="setting-description">
-            Defina sua série, turma ou curso.
-          </div>
-        </div>
-
-        <select class="select" id="courseSelect" onchange="saveCourse()">
-          <option value="Fundamental II">Fundamental II</option>
-          <option value="Ensino Médio">Ensino Médio</option>
-          <option value="Faculdade">Faculdade</option>
-          <option value="Não sou estudante">Não sou estudante</option>
-        </select>
-      </div>
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Motivo de usar o Vetrix</div>
-          <div class="setting-description">
-            Escolha como você pretende utilizar o Vetrix.
-          </div>
-        </div>
-
-        <select class="select" id="reasonSelect" onchange="saveReason()">
-          <option value="Fundamental II">Fundamental II</option>
-          <option value="Ensino Médio">Ensino Médio</option>
-          <option value="Faculdade">Faculdade</option>
-          <option value="Não sou estudante">Não sou estudante</option>
-        </select>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PREFERÊNCIAS -->
-  <section class="section">
-    <div class="section-title">Preferências</div>
-
-    <div class="settings-box">
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Notificações</div>
-          <div class="setting-description">
-            Receber avisos e novidades do Vetrix.
-          </div>
-        </div>
-
-        <div
-          class="toggle active"
-          id="notificationsToggle"
-          onclick="toggleSetting(this, 'notifications')">
-        </div>
-      </div>
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Resposta por voz</div>
-          <div class="setting-description">
-            Permitir respostas faladas quando disponível.
-          </div>
-        </div>
-
-        <div
-          class="toggle"
-          id="voiceToggle"
-          onclick="toggleSetting(this, 'voice')">
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CONTA -->
-  <section class="section">
-    <div class="section-title">Conta</div>
-
-    <div class="settings-box">
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Dados da conta</div>
-          <div class="setting-description">
-            Veja e altere informações da sua conta.
-          </div>
-        </div>
-
-        <button class="button" onclick="alert('Os dados da conta serão conectados ao sistema de contas do Vetrix.')">
-          Abrir
-        </button>
-      </div>
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Segurança</div>
-          <div class="setting-description">
-            Configurações relacionadas à segurança da conta.
-          </div>
-        </div>
-
-        <button class="button" onclick="alert('As opções de segurança serão conectadas ao sistema de contas.')">
-          Abrir
-        </button>
-      </div>
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Controle de dados</div>
-          <div class="setting-description">
-            Controle como seus dados são utilizados.
-          </div>
-        </div>
-
-        <button class="button" onclick="alert('O controle de dados será conectado ao sistema do Vetrix.')">
-          Abrir
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- OUTROS -->
-  <section class="section">
-    <div class="section-title">Outros</div>
-
-    <div class="settings-box">
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Modo do Vetrix</div>
-          <div class="setting-description">
-            Alterne entre Modo Estudo e Modo Base.
-          </div>
-        </div>
-
-        <button class="button orange" onclick="toggleMode()">
-          Alternar modo
-        </button>
-      </div>
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Sair da conta</div>
-          <div class="setting-description">
-            Encerrar a sessão atual.
-          </div>
-        </div>
-
-        <button class="button" onclick="logout()">
-          Sair
-        </button>
-      </div>
-
-      <div class="setting">
-        <div>
-          <div class="setting-name">Excluir conta</div>
-          <div class="setting-description">
-            Excluir permanentemente a conta e seus dados.
-          </div>
-        </div>
-
-        <button class="button danger" onclick="deleteAccount()">
-          Excluir
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-</div>
-```
 
   </main>
 
+</div>
+
+
 <script>
-  /* TEMA */
 
-  function changeTheme() {
-    const theme = document.getElementById("themeSelect").value;
+/* TEMA */
 
-    localStorage.setItem("vetrixTema", theme);
+function setTheme(theme){
 
-    if (theme === "light") {
-      document.documentElement.style.setProperty("--bg", "#f5f3f1");
-      document.documentElement.style.setProperty("--panel", "#ffffff");
-      document.documentElement.style.setProperty("--panel2", "#f1eeeb");
-      document.documentElement.style.setProperty("--border", "#ddd5cf");
-      document.documentElement.style.setProperty("--text", "#201914");
-      document.documentElement.style.setProperty("--dim", "#756a62");
-    } else {
-      document.documentElement.style.setProperty("--bg", "#090807");
-      document.documentElement.style.setProperty("--panel", "#110d0a");
-      document.documentElement.style.setProperty("--panel2", "#15100c");
-      document.documentElement.style.setProperty("--border", "#3a2518");
-      document.documentElement.style.setProperty("--text", "#f4eee8");
-      document.documentElement.style.setProperty("--dim", "#a99b8f");
-    }
+  localStorage.setItem("vetrixTheme", theme);
+
+  updateThemeButtons();
+
+  if(theme === "light"){
+
+    document.documentElement.style.setProperty("--bg","#f5f2ef");
+    document.documentElement.style.setProperty("--panel","#ffffff");
+    document.documentElement.style.setProperty("--panel2","#f3efeb");
+    document.documentElement.style.setProperty("--border","#ddd2c8");
+    document.documentElement.style.setProperty("--text","#211a15");
+    document.documentElement.style.setProperty("--dim","#75685e");
+
+  }else{
+
+    document.documentElement.style.setProperty("--bg","#090807");
+    document.documentElement.style.setProperty("--panel","#110d0a");
+    document.documentElement.style.setProperty("--panel2","#15100c");
+    document.documentElement.style.setProperty("--border","#3a2518");
+    document.documentElement.style.setProperty("--text","#f4eee8");
+    document.documentElement.style.setProperty("--dim","#a99b8f");
+
   }
 
-  /* SALA / CURSO */
+}
 
-  function saveCourse() {
-    const value = document.getElementById("courseSelect").value;
-    localStorage.setItem("vetrixCurso", value);
-  }
 
-  /* MOTIVO */
+/* ESCOLHAS */
 
-  function saveReason() {
-    const value = document.getElementById("reasonSelect").value;
-    localStorage.setItem("vetrixMotivo", value);
-  }
+function select(type,value,button){
 
-  /* TOGGLES */
+  localStorage.setItem("vetrix_"+type,value);
 
-  function toggleSetting(element, name) {
-    element.classList.toggle("active");
+  const buttons = button.parentElement.querySelectorAll(".choice");
 
-    localStorage.setItem(
-      "vetrix_" + name,
-      element.classList.contains("active") ? "on" : "off"
-    );
-  }
+  buttons.forEach(btn => {
+    btn.classList.remove("selected");
+  });
 
-  /* MODO */
+  button.classList.add("selected");
 
-  function toggleMode() {
-    const current = localStorage.getItem("vetrixModo") || "estudo";
+}
 
-    if (current === "estudo") {
-      localStorage.setItem("vetrixModo", "base");
-      alert("Vetrix alterado para Modo Base.");
-    } else {
-      localStorage.setItem("vetrixModo", "estudo");
-      alert("Vetrix alterado para Modo Estudo.");
-    }
-  }
 
-  /* SAIR */
+/* ATUALIZAR TEMA */
 
-  function logout() {
-    const confirmLogout = confirm(
-      "Tem certeza que deseja sair da conta?"
-    );
+function updateThemeButtons(){
 
-    if (confirmLogout) {
-      window.location.href = "index.html";
-    }
-  }
+  const theme = localStorage.getItem("vetrixTheme") || "dark";
 
-  /* EXCLUIR */
+  document.getElementById("darkBtn").classList.toggle(
+    "selected",
+    theme === "dark"
+  );
 
-  function deleteAccount() {
-    const confirmDelete = confirm(
-      "Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita."
-    );
+  document.getElementById("lightBtn").classList.toggle(
+    "selected",
+    theme === "light"
+  );
 
-    if (confirmDelete) {
-      alert(
-        "A exclusão da conta será conectada ao sistema de contas do Vetrix."
-      );
-    }
-  }
+}
 
-  /* CARREGAR CONFIGURAÇÕES */
 
-  function loadSettings() {
+/* CARREGAR CONFIGURAÇÕES */
 
-    const theme = localStorage.getItem("vetrixTema") || "dark";
-    document.getElementById("themeSelect").value = theme;
-    changeTheme();
+function loadSettings(){
 
-    const course = localStorage.getItem("vetrixCurso");
+  const level = localStorage.getItem("vetrix_level");
+  const reason = localStorage.getItem("vetrix_reason");
 
-    if (course) {
-      document.getElementById("courseSelect").value = course;
+  document.querySelectorAll(".choice").forEach(button => {
+
+    if(button.textContent.trim() === level ||
+       button.textContent.trim() === reason){
+
+      button.classList.add("selected");
+
     }
 
-    const reason = localStorage.getItem("vetrixMotivo");
+  });
 
-    if (reason) {
-      document.getElementById("reasonSelect").value = reason;
-    }
+  setTheme(localStorage.getItem("vetrixTheme") || "dark");
 
-    const notifications =
-      localStorage.getItem("vetrix_notifications");
+}
 
-    if (notifications === "off") {
-      document.getElementById("notificationsToggle")
-        .classList.remove("active");
-    }
 
-    const voice =
-      localStorage.getItem("vetrix_voice");
+/* SALVAR */
 
-    if (voice === "on") {
-      document.getElementById("voiceToggle")
-        .classList.add("active");
-    }
-  }
+function saveSettings(){
 
-  loadSettings();
+  const status = document.getElementById("status");
+
+  status.textContent = "✓ Configurações salvas";
+
+  setTimeout(() => {
+    status.textContent = "";
+  },2500);
+
+}
+
+loadSettings();
+
 </script>
 
 </body>
 </html>
+```
