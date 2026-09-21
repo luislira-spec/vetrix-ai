@@ -1,466 +1,434 @@
+```html
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vetrix AI</title>
-  <link rel="icon" href="vetrix-favicon-novo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetrix AI</title>
+<link rel="icon" href="vetrix-favicon-novo.png">
 
-  <style>
-    :root {
-      --bg: #090807;
-      --panel: #110d0a;
-      --panel2: #15100c;
-      --border: #3a2518;
-      --orange: #ff7a1a;
-      --orange-light: #ff9748;
-      --text: #f4eee8;
-      --dim: #a99b8f;
-    }
+<style>
+:root{
+  --bg:#090807;
+  --sidebar:#0d0a08;
+  --panel:#110d0a;
+  --panel2:#15100c;
+  --border:#3a2518;
+  --orange:#ff7a1a;
+  --orange-light:#ff9748;
+  --text:#f4eee8;
+  --dim:#a99b8f;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      height: 100vh;
-      overflow: hidden;
-    }
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  overflow:hidden;
+}
 
-    /* BARRA LATERAL */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 245px;
-      height: 100vh;
-      background: #0b0908;
-      border-right: 1px solid var(--border);
-      padding: 22px 15px;
-      display: flex;
-      flex-direction: column;
-      z-index: 10;
-    }
+/* LAYOUT */
 
-    .sidebar-brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 5px 9px 25px;
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 18px;
-    }
+.app{
+  display:flex;
+  height:100vh;
+}
 
-    .sidebar-brand img {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
-    }
+/* BARRA LATERAL */
 
-    .sidebar-brand span {
-      color: var(--orange);
-      font-size: 21px;
-      font-weight: 700;
-      text-decoration: none;
-    }
+.sidebar{
+  width:245px;
+  height:100vh;
+  background:var(--sidebar);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  padding:22px 16px;
+}
 
-    .side-button {
-      width: 100%;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text);
-      padding: 12px 13px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: left;
-      font-size: 14px;
-      margin-bottom: 5px;
-      transition: 0.2s;
-    }
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 8px 28px;
+}
 
-    .side-button:hover {
-      background: var(--panel);
-      border-color: var(--border);
-      color: var(--orange);
-    }
+.logo-area img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+}
 
-    .side-button.active {
-      background: var(--panel);
-      border-color: var(--border);
-      color: var(--orange);
-    }
+.brand-name{
+  color:var(--orange) !important;
+  text-decoration:none !important;
+  font-size:22px;
+  font-weight:700;
+}
 
-    .sidebar-spacer {
-      flex: 1;
-    }
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
 
-    /* ÁREA PRINCIPAL */
-    .main {
-      margin-left: 245px;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+.menu button,
+.menu a{
+  width:100%;
+  border:none;
+  background:transparent;
+  color:var(--dim);
+  text-decoration:none;
+  padding:13px 14px;
+  border-radius:10px;
+  text-align:left;
+  font-size:15px;
+  cursor:pointer;
+  transition:.2s;
+}
 
-    header {
-      height: 76px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 28px;
-      background: #0b0908;
-    }
+.menu button:hover,
+.menu a:hover{
+  background:#19110c;
+  color:var(--text);
+}
 
-    .page-title {
-      color: var(--text);
-      font-size: 17px;
-      font-weight: 600;
-    }
+.menu .active{
+  background:#21150e;
+  color:var(--orange-light);
+}
 
-    .page-title span {
-      color: var(--orange);
-    }
+.sidebar-bottom{
+  margin-top:auto;
+}
 
-    .chat-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-    }
+.sidebar-bottom button{
+  width:100%;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--dim);
+  padding:12px;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-    .messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 35px 20px 20px;
-    }
+.sidebar-bottom button:hover{
+  color:var(--text);
+  border-color:var(--orange);
+}
 
-    .welcome {
-      text-align: center;
-      margin-top: 12vh;
-    }
+/* CHAT */
 
-    .welcome img {
-      width: 75px;
-      height: 75px;
-      object-fit: contain;
-      margin-bottom: 18px;
-    }
+.chat{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
 
-    .welcome h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-      color: var(--orange);
-    }
+.chat-header{
+  height:76px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 30px;
+  background:rgba(9,8,7,.92);
+}
 
-    .welcome p {
-      color: var(--dim);
-      font-size: 16px;
-    }
+.chat-header-title{
+  color:var(--orange) !important;
+  text-decoration:none !important;
+  font-size:20px;
+  font-weight:700;
+}
 
-    .message {
-      max-width: 800px;
-      margin: 0 auto 18px;
-      padding: 15px 18px;
-      border-radius: 15px;
-      line-height: 1.5;
-      display: none;
-    }
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:55px 20px 120px;
+}
 
-    .user-message {
-      background: var(--orange);
-      color: #160c05;
-      margin-left: auto;
-      margin-right: max(calc((100% - 800px) / 2), 20px);
-      width: fit-content;
-    }
+.welcome{
+  max-width:720px;
+  margin:0 auto;
+  text-align:center;
+}
 
-    .ai-message {
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      margin-left: max(calc((100% - 800px) / 2), 20px);
-    }
+.welcome img{
+  width:75px;
+  height:75px;
+  object-fit:contain;
+  margin-bottom:18px;
+}
 
-    .input-area {
-      padding: 16px 20px 20px;
-      border-top: 1px solid var(--border);
-      background: #0b0908;
-    }
+.welcome h1{
+  font-size:30px;
+  margin-bottom:10px;
+}
 
-    .input-box {
-      max-width: 900px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 8px 10px 8px 16px;
-    }
+.welcome p{
+  color:var(--dim);
+  font-size:15px;
+}
 
-    .input-box:focus-within {
-      border-color: var(--orange);
-    }
+/* MENSAGEM */
 
-    textarea {
-      flex: 1;
-      resize: none;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: var(--text);
-      font-size: 15px;
-      min-height: 25px;
-      max-height: 120px;
-    }
+.message{
+  max-width:720px;
+  margin:28px auto;
+}
 
-    textarea::placeholder {
-      color: var(--dim);
-    }
+.message .name{
+  color:var(--orange-light);
+  font-size:14px;
+  margin-bottom:8px;
+  font-weight:bold;
+}
 
-    .send-btn {
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 12px;
-      background: var(--orange);
-      color: #170b04;
-      font-size: 19px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.message .bubble{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:15px 17px;
+  line-height:1.5;
+}
 
-    .send-btn:hover {
-      background: var(--orange-light);
-    }
+/* INPUT */
 
-    .mode {
-      text-align: center;
-      margin-top: 9px;
-      color: var(--dim);
-      font-size: 12px;
-    }
+.input-area{
+  padding:18px 25px 24px;
+  background:linear-gradient(transparent,var(--bg) 25%);
+}
 
-    @media (max-width: 700px) {
-      .sidebar {
-        width: 205px;
-      }
+.input-box{
+  max-width:760px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:8px;
+}
 
-      .main {
-        margin-left: 205px;
-      }
-    }
+.input-box:focus-within{
+  border-color:var(--orange);
+}
 
-    @media (max-width: 560px) {
-      .sidebar {
-        width: 68px;
-        padding: 18px 8px;
-      }
+.input-box textarea{
+  flex:1;
+  resize:none;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  font-family:inherit;
+  font-size:15px;
+  padding:10px;
+  min-height:42px;
+  max-height:120px;
+}
 
-      .sidebar-brand {
-        justify-content: center;
-        padding: 5px 0 18px;
-      }
+.send{
+  width:43px;
+  height:43px;
+  border:none;
+  border-radius:10px;
+  background:var(--orange);
+  color:#160b04;
+  font-size:18px;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-      .sidebar-brand span {
-        display: none;
-      }
+.send:hover{
+  background:var(--orange-light);
+}
 
-      .side-button {
-        text-align: center;
-        padding: 12px 5px;
-        font-size: 0;
-      }
+/* MOBILE */
 
-      .side-button::first-letter {
-        font-size: 18px;
-      }
+@media(max-width:700px){
+  .sidebar{
+    width:190px;
+  }
 
-      .main {
-        margin-left: 68px;
-      }
+  .logo-area{
+    padding-left:3px;
+  }
 
-      header {
-        padding: 0 18px;
-      }
+  .brand-name{
+    font-size:18px;
+  }
 
-      .welcome h1 {
-        font-size: 27px;
-      }
-    }
-  </style>
+  .chat-header{
+    padding:0 18px;
+  }
 
+  .messages{
+    padding-top:35px;
+  }
+}
+</style>
 </head>
 
 <body>
 
+<div class="app">
+
+  <!-- BARRA LATERAL -->
   <aside class="sidebar">
 
-```
-<a href="chat.html" class="sidebar-brand">
-  <img src="vetrix-favicon-novo.png" alt="Vetrix">
-  <span>Vetrix AI</span>
-</a>
+    <div class="logo-area">
+      <img src="vetrix-favicon-novo.png" alt="Vetrix">
+      <a href="chat.html" class="brand-name">Vetrix AI</a>
+    </div>
 
-<button class="side-button active" onclick="newChat()">
-  ＋ Novo chat
-</button>
+    <nav class="menu">
 
-<button class="side-button" onclick="alert('O histórico de conversas será conectado à conta do Vetrix.')">
-  🕘 Histórico
-</button>
+      <button class="active" onclick="novoChat()">
+        ＋ Novo chat
+      </button>
 
-<button class="side-button" onclick="alert('Central de ajuda do Vetrix.')">
-  ❔ Ajuda
-</button>
+      <button onclick="alert('Os chats recentes aparecerão aqui.')">
+        ◷ Histórico
+      </button>
 
-<button class="side-button" onclick="window.location.href='configuracoes.html'">
-  ⚙️ Configurações
-</button>
+      <a href="configuracoes.html">
+        ⚙ Configurações
+      </a>
 
-<div class="sidebar-spacer"></div>
+    </nav>
 
-<button class="side-button" onclick="toggleMode()">
-  🎓 Modo Estudo
-</button>
-```
+    <div class="sidebar-bottom">
+      <button onclick="alert('Ajuda do Vetrix AI')">
+        ❔ Ajuda
+      </button>
+    </div>
 
   </aside>
 
-  <main class="main">
 
-```
-<header>
-  <div class="page-title">
-    <span>Vetrix AI</span>
-  </div>
-</header>
+  <!-- CHAT -->
+  <main class="chat">
 
-<section class="chat-area">
+    <header class="chat-header">
+      <a href="chat.html" class="chat-header-title">Vetrix AI</a>
+    </header>
 
-  <section class="messages" id="messages">
+    <section class="messages" id="messages">
 
-    <div class="welcome" id="welcome">
-      <img src="vetrix-favicon-novo.png" alt="Vetrix">
-      <h1>Como posso ajudar?</h1>
-      <p>Estude, pesquise e aprenda com o Vetrix AI.</p>
+      <div class="welcome" id="welcome">
+
+        <img src="vetrix-favicon-novo.png" alt="Vetrix AI">
+
+        <h1>Olá! Eu sou o Vetrix AI.</h1>
+
+        <p>
+          Posso ajudar você a estudar, aprender e tirar dúvidas.
+        </p>
+
+      </div>
+
+    </section>
+
+    <div class="input-area">
+
+      <div class="input-box">
+
+        <textarea
+          id="messageInput"
+          placeholder="Digite sua mensagem..."
+          rows="1"
+          onkeydown="handleKey(event)"
+        ></textarea>
+
+        <button class="send" onclick="sendMessage()">➤</button>
+
+      </div>
+
     </div>
-
-  </section>
-
-  <section class="input-area">
-
-    <div class="input-box">
-      <textarea
-        id="messageInput"
-        placeholder="Pergunte alguma coisa..."
-        rows="1"
-      ></textarea>
-
-      <button class="send-btn" onclick="sendMessage()">➤</button>
-    </div>
-
-    <div class="mode" id="modeText">
-      Vetrix AI • Modo estudo
-    </div>
-
-  </section>
-
-</section>
-```
 
   </main>
 
+</div>
+
+
 <script>
+
+function sendMessage(){
+
   const input = document.getElementById("messageInput");
-  const messages = document.getElementById("messages");
+  const text = input.value.trim();
+
+  if(!text) return;
+
   const welcome = document.getElementById("welcome");
-  const modeText = document.getElementById("modeText");
 
-  input.addEventListener("keydown", function(event) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      sendMessage();
-    }
-  });
-
-  input.addEventListener("input", function() {
-    this.style.height = "auto";
-    this.style.height = Math.min(this.scrollHeight, 120) + "px";
-  });
-
-  function sendMessage() {
-    const text = input.value.trim();
-
-    if (!text) return;
-
-    welcome.style.display = "none";
-
-    const userMessage = document.createElement("div");
-    userMessage.className = "message user-message";
-    userMessage.style.display = "block";
-    userMessage.textContent = text;
-
-    messages.appendChild(userMessage);
-
-    input.value = "";
-    input.style.height = "25px";
-
-    setTimeout(() => {
-      const aiMessage = document.createElement("div");
-      aiMessage.className = "message ai-message";
-      aiMessage.style.display = "block";
-      aiMessage.textContent =
-        "Esta é uma resposta de demonstração do Vetrix AI.";
-
-      messages.appendChild(aiMessage);
-      messages.scrollTop = messages.scrollHeight;
-    }, 500);
-
-    messages.scrollTop = messages.scrollHeight;
+  if(welcome){
+    welcome.remove();
   }
 
-  function newChat() {
-    messages.innerHTML = `
-      <div class="welcome" id="welcome">
-        <img src="vetrix-favicon-novo.png" alt="Vetrix">
-        <h1>Como posso ajudar?</h1>
-        <p>Estude, pesquise e aprenda com o Vetrix AI.</p>
+  const messages = document.getElementById("messages");
+
+  const userMessage = document.createElement("div");
+  userMessage.className = "message";
+
+  userMessage.innerHTML = `
+    <div class="name">Você</div>
+    <div class="bubble">${escapeHTML(text)}</div>
+  `;
+
+  messages.appendChild(userMessage);
+
+  input.value = "";
+
+  setTimeout(() => {
+
+    const vetrixMessage = document.createElement("div");
+    vetrixMessage.className = "message";
+
+    vetrixMessage.innerHTML = `
+      <div class="name">Vetrix AI</div>
+      <div class="bubble">
+        Esta é uma resposta de demonstração do Vetrix AI.
       </div>
     `;
+
+    messages.appendChild(vetrixMessage);
+    messages.scrollTop = messages.scrollHeight;
+
+  },500);
+
+}
+
+function escapeHTML(text){
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function handleKey(event){
+
+  if(event.key === "Enter" && !event.shiftKey){
+    event.preventDefault();
+    sendMessage();
   }
 
-  function toggleMode() {
-    const current = localStorage.getItem("vetrixModo") || "estudo";
+}
 
-    if (current === "estudo") {
-      localStorage.setItem("vetrixModo", "base");
-      modeText.textContent = "Vetrix AI • Modo base";
-    } else {
-      localStorage.setItem("vetrixModo", "estudo");
-      modeText.textContent = "Vetrix AI • Modo estudo";
-    }
-  }
+function novoChat(){
+  location.reload();
+}
 
-  function loadMode() {
-    const mode = localStorage.getItem("vetrixModo") || "estudo";
-
-    if (mode === "base") {
-      modeText.textContent = "Vetrix AI • Modo base";
-    } else {
-      modeText.textContent = "Vetrix AI • Modo estudo";
-    }
-  }
-
-  loadMode();
 </script>
 
 </body>
 </html>
+```
