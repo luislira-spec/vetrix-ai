@@ -1,590 +1,318 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vetrix AI</title>
+  <link rel="icon" href="vetrix-favicon-novo.png">
 
-<meta name="theme-color" content="#0b0a09">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Vetrix AI">
+  <style>
+    :root {
+      --bg: #090807;
+      --panel: #110d0a;
+      --panel2: #15100c;
+      --border: #3a2518;
+      --orange: #ff7a1a;
+      --orange-light: #ff9748;
+      --text: #f4eee8;
+      --dim: #a99b8f;
+    }
 
-<title>Vetrix AI — Chat</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<link rel="icon" type="image/png" href="vetrix-favicon-novo.png">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+    }
 
-<style>
-:root{
-  --bg:#0b0a09;
-  --panel:#12100e;
-  --border:#33271e;
-  --orange:#ff7a1a;
-  --text:#f7f2ed;
-  --muted:#aaa099;
-}
+    header {
+      height: 76px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      background: #0b0908;
+    }
 
-*{
-  box-sizing:border-box;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
 
-button,
-textarea{
-  font:inherit;
-}
+    .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--orange) !important;
+      text-decoration: none;
+    }
 
-button{
-  cursor:pointer;
-}
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+    }
 
-/* TOPO */
+    .header-btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+    }
 
-.top{
-  height:74px;
-  padding:0 25px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:#0d0b0a;
-  border-bottom:1px solid #2a211a;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
+    .header-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
 
-.brand,
-.brand:visited,
-.brand:hover,
-.brand:active{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  font-size:19px;
-  color:var(--text) !important;
-  text-decoration:none;
-}
+    .chat-area {
+      height: calc(100vh - 76px);
+      display: flex;
+      flex-direction: column;
+    }
 
-.brand img{
-  width:38px;
-  height:38px;
-  object-fit:contain;
-}
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 35px 20px 20px;
+    }
 
-.ai{
-  color:var(--orange) !important;
-}
+    .welcome {
+      text-align: center;
+      margin-top: 12vh;
+    }
 
-.topright{
-  display:flex;
-  gap:9px;
-}
+    .welcome img {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+      margin-bottom: 18px;
+    }
 
-.pill{
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--text);
-  border-radius:20px;
-  padding:9px 13px;
-  font-weight:700;
-}
+    .welcome h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: var(--orange);
+    }
 
-.study{
-  border-color:var(--orange);
-  color:var(--orange);
-}
+    .welcome p {
+      color: var(--dim);
+      font-size: 16px;
+    }
 
-/* LAYOUT */
+    .message {
+      max-width: 800px;
+      margin: 0 auto 18px;
+      padding: 15px 18px;
+      border-radius: 15px;
+      line-height: 1.5;
+      display: none;
+    }
 
-.layout{
-  display:grid;
-  grid-template-columns:215px 1fr;
-  min-height:calc(100vh - 74px);
-}
+    .user-message {
+      background: var(--orange);
+      color: #160c05;
+      margin-left: auto;
+      margin-right: max(calc((100% - 800px) / 2), 20px);
+      width: fit-content;
+    }
 
-.side{
-  background:#0e0c0b;
-  border-right:1px solid #241c16;
-  padding:17px 11px;
-}
+    .ai-message {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      margin-left: max(calc((100% - 800px) / 2), 20px);
+    }
 
-.side button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:#aaa19b;
-  text-align:left;
-  padding:12px;
-  border-radius:11px;
-  margin-bottom:4px;
-}
+    .input-area {
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--border);
+      background: #0b0908;
+    }
 
-.side .active{
-  background:#191410;
-  color:var(--orange);
-}
+    .input-box {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px 10px 8px 16px;
+    }
 
-/* CHAT */
+    .input-box:focus-within {
+      border-color: var(--orange);
+    }
 
-.chat{
-  max-width:900px;
-  width:100%;
-  margin:auto;
-  min-height:calc(100vh - 74px);
-}
+    textarea {
+      flex: 1;
+      resize: none;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 15px;
+      min-height: 25px;
+      max-height: 120px;
+    }
 
-.messages{
-  padding:28px 20px 145px;
-}
+    textarea::placeholder {
+      color: var(--dim);
+    }
 
-.msg{
-  display:flex;
-  gap:9px;
-  max-width:800px;
-  margin:0 auto 17px;
-}
+    .send-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 12px;
+      background: var(--orange);
+      color: #170b04;
+      font-size: 19px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.avatar{
-  width:35px;
-  height:35px;
-  flex:0 0 35px;
-  border:1px solid #57402d;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-}
+    .send-btn:hover {
+      background: var(--orange-light);
+    }
 
-.avatar img{
-  width:27px;
-  height:27px;
-  object-fit:contain;
-}
+    .mode {
+      text-align: center;
+      margin-top: 9px;
+      color: var(--dim);
+      font-size: 12px;
+    }
 
-.bubble{
-  padding:14px 16px;
-  border-radius:17px;
-  line-height:1.55;
-  font-size:15px;
-}
+    @media (max-width: 600px) {
+      header {
+        padding: 0 15px;
+      }
 
-.user{
-  justify-content:flex-end;
-}
+      .brand-name {
+        font-size: 19px;
+      }
 
-.user .bubble{
-  background:var(--orange);
-  color:#1b0d04;
-  max-width:78%;
-  border-bottom-right-radius:5px;
-}
+      .header-btn {
+        padding: 9px 11px;
+      }
 
-.ai-msg .bubble{
-  background:#15171a;
-  border:1px solid #3a3f45;
-  max-width:87%;
-  border-bottom-left-radius:5px;
-}
-
-/* COMPOSITOR */
-
-.composer{
-  position:fixed;
-  left:215px;
-  right:0;
-  bottom:0;
-  padding:30px 18px 17px;
-  background:linear-gradient(transparent,#0b0a09 25%);
-  z-index:8;
-}
-
-.compose{
-  max-width:800px;
-  margin:auto;
-  display:flex;
-  gap:7px;
-  align-items:center;
-  border:1px solid #4a3b2e;
-  background:#101010;
-  border-radius:18px;
-  padding:7px;
-}
-
-.add,
-.send{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:transparent;
-}
-
-.add{
-  border:1px solid #77736f;
-  color:white;
-  font-size:24px;
-}
-
-.send{
-  border:1px solid var(--orange);
-  color:var(--orange);
-  font-size:19px;
-}
-
-textarea{
-  flex:1;
-  background:transparent;
-  color:var(--text);
-  border:0;
-  outline:0;
-  resize:none;
-  min-height:40px;
-  max-height:120px;
-  padding:9px;
-}
-
-.bottom{
-  display:none;
-}
-
-/* CELULAR */
-
-@media(max-width:760px){
-
-  .top{
-    height:70px;
-    padding:0 14px;
-  }
-
-  .brand{
-    font-size:17px;
-  }
-
-  .brand img{
-    width:33px;
-    height:33px;
-  }
-
-  .topright .user{
-    display:none;
-  }
-
-  .pill{
-    font-size:12px;
-    padding:8px 10px;
-  }
-
-  .layout{
-    display:block;
-    min-height:calc(100vh - 70px);
-  }
-
-  .side{
-    display:none;
-  }
-
-  .chat{
-    min-height:calc(100vh - 70px);
-  }
-
-  .messages{
-    padding:17px 11px 145px;
-  }
-
-  .msg{
-    margin-bottom:14px;
-  }
-
-  .avatar{
-    width:31px;
-    height:31px;
-    flex-basis:31px;
-  }
-
-  .avatar img{
-    width:24px;
-    height:24px;
-  }
-
-  .bubble{
-    font-size:14px;
-    padding:12px 13px;
-  }
-
-  .user .bubble{
-    max-width:83%;
-  }
-
-  .ai-msg .bubble{
-    max-width:91%;
-  }
-
-  .composer{
-    left:0;
-    right:0;
-    padding:23px 9px calc(76px + env(safe-area-inset-bottom));
-    background:linear-gradient(transparent,#0b0a09 30%);
-  }
-
-  .compose{
-    border-radius:18px;
-  }
-
-  .bottom{
-    display:flex;
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:20;
-    padding:8px 5px calc(8px + env(safe-area-inset-bottom));
-    background:rgba(12,10,9,.97);
-    border-top:1px solid #2b2119;
-    justify-content:space-around;
-  }
-
-  .bottom button{
-    border:0;
-    background:transparent;
-    color:#8f8781;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:3px;
-    font-size:10px;
-  }
-
-  .bottom span{
-    font-size:20px;
-  }
-
-  .bottom .sel{
-    color:var(--orange);
-  }
-}
-</style>
+      .welcome h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="top">
-
-  <a class="brand" href="index.html">
-    <img src="vetrix-logo-final.png" alt="Vetrix AI">
-    <span>VETRIX <span class="ai">AI</span></span>
+<header>
+  <a href="chat.html" class="brand">
+    <img src="vetrix-favicon-novo.png" alt="Vetrix">
+    <span class="brand-name">Vetrix AI</span>
   </a>
 
-  <div class="topright">
-
-    <!-- ÚNICO botão de modo -->
-    <button class="pill study" onclick="toggleMode()">
-      🎓 <span id="mode">Modo Estudo</span>
+  <div class="header-buttons">
+    <button class="header-btn" onclick="window.location.href='configuracoes.html'">
+      ⚙️ Configurações
     </button>
-
-    <button class="pill user">
-      👤 Luís
-    </button>
-
   </div>
-
 </header>
 
+<main class="chat-area">
 
-<div class="layout">
+  <section class="messages" id="messages">
 
-  <aside class="side">
+    <div class="welcome" id="welcome">
+      <img src="vetrix-favicon-novo.png" alt="Vetrix">
+      <h1>Como posso ajudar?</h1>
+      <p>Estude, pesquise e aprenda com o Vetrix AI.</p>
+    </div>
 
-    <button class="active" onclick="newChat()">
-      💬 Nova conversa
-    </button>
+  </section>
 
-    <button onclick="location.href='index.html'">
-      ⌂ Início
-    </button>
+  <section class="input-area">
+    <div class="input-box">
+      <textarea
+        id="messageInput"
+        placeholder="Pergunte alguma coisa..."
+        rows="1"
+      ></textarea>
 
-    <button onclick="alert('Histórico será conectado na próxima etapa.')">
-      ◷ Histórico
-    </button>
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
 
-    <button onclick="alert('Configurações serão conectadas na próxima etapa.')">
-      ⚙ Configurações
-    </button>
+    <div class="mode">
+      Vetrix AI • Modo estudo
+    </div>
+  </section>
 
-    <button onclick="alert('Ajuda será conectada na próxima etapa.')">
-      ? Ajuda
-    </button>
-
-  </aside>
-
-
-  <main class="chat">
-
-    <section class="messages" id="messages">
-    </section>
-
-  </main>
-
-</div>
-
-
-<div class="composer">
-
-  <div class="compose">
-
-    <button
-      class="add"
-      onclick="alert('Anexos serão conectados quando a API estiver pronta.')">
-      +
-    </button>
-
-    <textarea
-      id="q"
-      rows="1"
-      placeholder="Digite sua mensagem..."
-    ></textarea>
-
-    <button
-      class="send"
-      onclick="send()">
-      ➤
-    </button>
-
-  </div>
-
-</div>
-
-
-<nav class="bottom">
-
-  <button onclick="location.href='index.html'">
-    <span>⌂</span>
-    Início
-  </button>
-
-  <button class="sel" onclick="newChat()">
-    <span>◌</span>
-    Chat
-  </button>
-
-  <button onclick="alert('Histórico será conectado na próxima etapa.')">
-    <span>◷</span>
-    Histórico
-  </button>
-
-  <button onclick="alert('Configurações serão conectadas na próxima etapa.')">
-    <span>⚙</span>
-    Configurações
-  </button>
-
-  <button onclick="alert('Ajuda será conectada na próxima etapa.')">
-    <span>?</span>
-    Ajuda
-  </button>
-
-</nav>
-
+</main>
 
 <script>
+  const input = document.getElementById("messageInput");
+  const messages = document.getElementById("messages");
+  const welcome = document.getElementById("welcome");
 
-const q = document.getElementById('q');
-const messages = document.getElementById('messages');
-
-
-function send(){
-
-  const t = q.value.trim();
-
-  if(!t) return;
-
-  const u = document.createElement('div');
-
-  u.className = 'msg user';
-
-  u.innerHTML = '<div class="bubble"></div>';
-
-  u.querySelector('.bubble').textContent = t;
-
-  messages.appendChild(u);
-
-  q.value = '';
-
-  q.style.height = 'auto';
-
-
-  const a = document.createElement('div');
-
-  a.className = 'msg ai-msg';
-
-  a.innerHTML =
-    '<div class="avatar">' +
-    '<img src="vetrix-logo-final.png" alt="Vetrix">' +
-    '</div>' +
-    '<div class="bubble"></div>';
-
-  a.querySelector('.bubble').innerHTML =
-    '<b style="color:var(--orange)">Vetrix</b>' +
-    '<br><br>' +
-    'Recebi sua mensagem. A interface está pronta; ' +
-    'a resposta real será conectada quando a API for adicionada.';
-
-  messages.appendChild(a);
-
-  window.scrollTo({
-    top:document.body.scrollHeight,
-    behavior:'smooth'
+  input.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
   });
 
-}
+  input.addEventListener("input", function() {
+    this.style.height = "auto";
+    this.style.height = Math.min(this.scrollHeight, 120) + "px";
+  });
 
+  function sendMessage() {
+    const text = input.value.trim();
 
-q.addEventListener('keydown',e=>{
+    if (!text) return;
 
-  if(e.key==='Enter' && !e.shiftKey){
+    welcome.style.display = "none";
 
-    e.preventDefault();
+    const userMessage = document.createElement("div");
+    userMessage.className = "message user-message";
+    userMessage.style.display = "block";
+    userMessage.textContent = text;
 
-    send();
+    messages.appendChild(userMessage);
 
+    input.value = "";
+    input.style.height = "25px";
+
+    setTimeout(() => {
+      const aiMessage = document.createElement("div");
+      aiMessage.className = "message ai-message";
+      aiMessage.style.display = "block";
+      aiMessage.textContent =
+        "Esta é uma resposta de demonstração do Vetrix AI.";
+
+      messages.appendChild(aiMessage);
+      messages.scrollTop = messages.scrollHeight;
+    }, 500);
+
+    messages.scrollTop = messages.scrollHeight;
   }
-
-});
-
-
-q.addEventListener('input',()=>{
-
-  q.style.height='auto';
-
-  q.style.height =
-    Math.min(q.scrollHeight,120)+'px';
-
-});
-
-
-function newChat(){
-
-  q.value='';
-
-  q.focus();
-
-}
-
-
-function toggleMode(){
-
-  const m = document.getElementById('mode');
-
-  const study = m.textContent === 'Modo Estudo';
-
-  m.textContent =
-    study ? 'Modo Base' : 'Modo Estudo';
-
-}
-
 </script>
 
 </body>
