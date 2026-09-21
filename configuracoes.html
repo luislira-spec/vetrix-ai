@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações • Vetrix AI</title>
+  <link rel="icon" href="vetrix-favicon-novo.png">
+
+  <style>
+    :root {
+      --bg: #090807;
+      --panel: #110d0a;
+      --panel2: #15100c;
+      --border: #3a2518;
+      --orange: #ff7a1a;
+      --orange-light: #ff9748;
+      --text: #f4eee8;
+      --dim: #a99b8f;
+      --danger: #e05252;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      height: 76px;
+      border-bottom: 1px solid var(--border);
+      background: #0b0908;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 18px;
+    }
+
+    .back {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .back:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      color: var(--orange);
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .container {
+      width: min(900px, calc(100% - 30px));
+      margin: 35px auto 60px;
+    }
+
+    .title {
+      margin-bottom: 30px;
+    }
+
+    .title h1 {
+      font-size: 31px;
+      margin-bottom: 7px;
+    }
+
+    .title p {
+      color: var(--dim);
+      font-size: 15px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      color: var(--dim);
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 0 0 9px 7px;
+    }
+
+    .settings-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .setting {
+      min-height: 70px;
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .setting:last-child {
+      border-bottom: none;
+    }
+
+    .setting-info {
+      min-width: 0;
+    }
+
+    .setting-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .setting-description {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .select {
+      min-width: 170px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select:focus {
+      border-color: var(--orange);
+    }
+
+    .button {
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .button:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .button.orange {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #170b04;
+      font-weight: bold;
+    }
+
+    .button.orange:hover {
+      background: var(--orange-light);
+      color: #170b04;
+    }
+
+    .button.danger {
+      color: var(--danger);
+      border-color: #542323;
+    }
+
+    .button.danger:hover {
+      background: #241010;
+      border-color: var(--danger);
+    }
+
+    .toggle {
+      width: 48px;
+      height: 27px;
+      border-radius: 30px;
+      background: #33271f;
+      border: 1px solid var(--border);
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .toggle::after {
+      content: "";
+      position: absolute;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: #a99b8f;
+      top: 2px;
+      left: 3px;
+      transition: 0.2s;
+    }
+
+    .toggle.active {
+      background: var(--orange);
+    }
+
+    .toggle.active::after {
+      background: #170b04;
+      left: 22px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--dim);
+      font-size: 12px;
+      margin-top: 35px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0 15px;
+      }
+
+      .container {
+        width: calc(100% - 20px);
+        margin-top: 25px;
+      }
+
+      .setting {
+        align-items: flex-start;
+      }
+
+      .select {
+        min-width: 125px;
+      }
+
+      .setting-description {
+        max-width: 100%;
+      }
+
+      .title h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <button class="back" onclick="window.location.href='chat.html'">←</button>
+
+  <a href="chat.html" class="brand">
+    <img src="vetrix-favicon-novo.png" alt="Vetrix">
+    <span class="brand-name">Vetrix AI</span>
+  </a>
+</header>
+
+<main class="container">
+
+  <div class="title">
+    <h1>Configurações</h1>
+    <p>Personalize sua experiência no Vetrix.</p>
+  </div>
+
+  <!-- APARÊNCIA -->
+  <section class="section">
+    <div class="section-title">Aparência</div>
+
+    <div class="settings-box">
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Tema</div>
+          <div class="setting-description">
+            Escolha entre modo escuro e modo claro.
+          </div>
+        </div>
+
+        <select class="select" id="themeSelect" onchange="changeTheme()">
+          <option value="dark">Modo escuro</option>
+          <option value="light">Modo claro</option>
+        </select>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ESTUDOS -->
+  <section class="section">
+    <div class="section-title">Estudos</div>
+
+    <div class="settings-box">
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Sala / curso</div>
+          <div class="setting-description">
+            Defina sua série, turma ou curso.
+          </div>
+        </div>
+
+        <button class="button" onclick="alert('Área para alterar sala ou curso.')">
+          Alterar
+        </button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Motivo de usar o Vetrix</div>
+          <div class="setting-description">
+            Faculdade, Ensino Médio, Fundamental II ou não sou estudante.
+          </div>
+        </div>
+
+        <button class="button" onclick="alert('Área para alterar o motivo de uso.')">
+          Alterar
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PREFERÊNCIAS -->
+  <section class="section">
+    <div class="section-title">Preferências</div>
+
+    <div class="settings-box">
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Notificações</div>
+          <div class="setting-description">
+            Receber avisos e novidades do Vetrix.
+          </div>
+        </div>
+
+        <div class="toggle active" onclick="toggle(this)"></div>
+      </div>
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Resposta por voz</div>
+          <div class="setting-description">
+            Permitir respostas faladas quando disponível.
+          </div>
+        </div>
+
+        <div class="toggle" onclick="toggle(this)"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTA -->
+  <section class="section">
+    <div class="section-title">Conta</div>
+
+    <div class="settings-box">
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Dados da conta</div>
+          <div class="setting-description">
+            Veja e altere informações da sua conta.
+          </div>
+        </div>
+
+        <button class="button">Abrir</button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Segurança</div>
+          <div class="setting-description">
+            Configurações relacionadas à segurança da conta.
+          </div>
+        </div>
+
+        <button class="button">Abrir</button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Controle de dados</div>
+          <div class="setting-description">
+            Controle como seus dados são utilizados.
+          </div>
+        </div>
+
+        <button class="button">Abrir</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OUTROS -->
+  <section class="section">
+    <div class="section-title">Outros</div>
+
+    <div class="settings-box">
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Modo do Vetrix</div>
+          <div class="setting-description">
+            Alterne entre Modo Estudo e Modo Base.
+          </div>
+        </div>
+
+        <button class="button orange" onclick="window.location.href='chat.html'">
+          Modo Estudo
+        </button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Sair da conta</div>
+          <div class="setting-description">
+            Encerrar a sessão atual.
+          </div>
+        </div>
+
+        <button class="button" onclick="logout()">Sair</button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-info">
+          <div class="setting-name">Excluir conta</div>
+          <div class="setting-description">
+            Excluir permanentemente a conta e seus dados.
+          </div>
+        </div>
+
+        <button class="button danger" onclick="deleteAccount()">
+          Excluir
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">
+    Vetrix AI
+  </div>
+
+</main>
+
+<script>
+  function toggle(element) {
+    element.classList.toggle("active");
+  }
+
+  function changeTheme() {
+    const theme = document.getElementById("themeSelect").value;
+
+    if (theme === "light") {
+      document.documentElement.style.setProperty("--bg", "#f5f3f1");
+      document.documentElement.style.setProperty("--panel", "#ffffff");
+      document.documentElement.style.setProperty("--panel2", "#f1eeeb");
+      document.documentElement.style.setProperty("--border", "#ddd5cf");
+      document.documentElement.style.setProperty("--text", "#201914");
+      document.documentElement.style.setProperty("--dim", "#756a62");
+    } else {
+      document.documentElement.style.setProperty("--bg", "#090807");
+      document.documentElement.style.setProperty("--panel", "#110d0a");
+      document.documentElement.style.setProperty("--panel2", "#15100c");
+      document.documentElement.style.setProperty("--border", "#3a2518");
+      document.documentElement.style.setProperty("--text", "#f4eee8");
+      document.documentElement.style.setProperty("--dim", "#a99b8f");
+    }
+  }
+
+  function logout() {
+    const confirmLogout = confirm("Tem certeza que deseja sair da conta?");
+
+    if (confirmLogout) {
+      window.location.href = "index.html";
+    }
+  }
+
+  function deleteAccount() {
+    const confirmDelete = confirm(
+      "Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita."
+    );
+
+    if (confirmDelete) {
+      alert("A exclusão da conta ainda será conectada ao sistema de contas.");
+    }
+  }
+</script>
+
+</body>
+</html>
