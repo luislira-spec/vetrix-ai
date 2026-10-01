@@ -1,439 +1,632 @@
-
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vetrix AI</title>
-<link rel="icon" href="vetrix-favicon-novo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vetrix AI</title>
 
-<style>
-:root{
-  --bg:#090807;
-  --sidebar:#0d0a08;
-  --panel:#110d0a;
-  --panel2:#15100c;
-  --border:#3a2518;
-  --orange:#ff7a1a;
-  --orange-light:#ff9748;
-  --text:#f4eee8;
-  --dim:#a99b8f;
-}
+  <link rel="icon" type="image/png" href="vetrix-favicon-novo.png">
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  height:100vh;
-  overflow:hidden;
-  transition:background .25s,color .25s;
-}
+    :root{
+      --bg:#090807;
+      --sidebar:#0d0a08;
+      --panel:#110d0a;
+      --panel2:#15100c;
+      --border:#3a2518;
+      --orange:#ff7a1a;
+      --orange-light:#ff9748;
+      --text:#f4eee8;
+      --dim:#a99b8f;
+      --danger:#ff5c5c;
+    }
 
-/* =========================
-   APP
-========================= */
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      height:100vh;
+      overflow:hidden;
+      transition:
+        background .25s ease,
+        color .25s ease;
+    }
 
-.app{
-  display:flex;
-  height:100vh;
-}
+    /* =========================
+       MODO CLARO
+       ========================= */
 
-/* =========================
-   SIDEBAR
-========================= */
+    body.light{
+      --bg:#f5f2ef;
+      --sidebar:#ebe5df;
+      --panel:#ffffff;
+      --panel2:#f3efeb;
+      --border:#d7ccc2;
+      --text:#241b15;
+      --dim:#75685e;
+      --orange:#e96512;
+      --orange-light:#f27d2a;
+      --danger:#d83c3c;
+    }
 
-.sidebar{
-  width:250px;
-  height:100vh;
-  background:var(--sidebar);
-  border-right:1px solid var(--border);
-  display:flex;
-  flex-direction:column;
-  padding:22px 16px;
-  flex-shrink:0;
-  transition:background .25s,border-color .25s;
-}
+    /* =========================
+       LAYOUT
+       ========================= */
 
-.logo-area{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:6px 8px 28px;
-}
+    .app{
+      display:flex;
+      width:100%;
+      height:100vh;
+    }
 
-.logo-area img{
-  width:48px;
-  height:48px;
-  object-fit:contain;
-}
+    /* =========================
+       SIDEBAR
+       ========================= */
 
-.brand-name{
-  color:var(--orange) !important;
-  text-decoration:none !important;
-  font-size:22px;
-  font-weight:700;
-}
+    .sidebar{
+      width:250px;
+      height:100vh;
+      background:var(--sidebar);
+      border-right:1px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      padding:22px 15px;
+      transition:
+        background .25s ease,
+        border-color .25s ease;
+    }
 
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:5px 8px 25px;
+    }
 
-.menu button,
-.menu a{
-  width:100%;
-  border:none;
-  background:transparent;
-  color:var(--dim);
-  text-decoration:none;
-  padding:13px 14px;
-  border-radius:10px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-  transition:.2s;
-}
+    .brand img{
+      width:52px;
+      height:52px;
+      object-fit:contain;
+      flex-shrink:0;
+    }
 
-.menu button:hover,
-.menu a:hover{
-  background:var(--panel2);
-  color:var(--text);
-}
+    .brand-name{
+      color:var(--orange)!important;
+      text-decoration:none!important;
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:-.5px;
+      text-shadow:0 0 13px rgba(255,122,26,.18);
+    }
 
-.menu .active{
-  background:#21150e;
-  color:var(--orange-light);
-}
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
 
-.sidebar-bottom{
-  margin-top:auto;
-}
+    .menu button,
+    .menu a{
+      width:100%;
+      min-height:45px;
+      border:1px solid transparent;
+      border-radius:11px;
+      background:transparent;
+      color:var(--text);
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 14px;
+      font-size:14px;
+      cursor:pointer;
+      transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+      font-family:inherit;
+    }
 
-.sidebar-bottom button{
-  width:100%;
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--dim);
-  padding:12px;
-  border-radius:10px;
-  cursor:pointer;
-}
+    .menu button:hover,
+    .menu a:hover{
+      background:var(--panel);
+      border-color:var(--border);
+    }
 
-.sidebar-bottom button:hover{
-  color:var(--text);
-  border-color:var(--orange);
-}
+    .menu .active{
+      background:rgba(255,122,26,.10);
+      border-color:rgba(255,122,26,.18);
+      color:var(--orange);
+    }
 
-/* =========================
-   CHAT
-========================= */
+    .menu-icon{
+      width:21px;
+      text-align:center;
+      font-size:18px;
+      flex-shrink:0;
+    }
 
-.chat{
-  flex:1;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-}
+    .sidebar-bottom{
+      margin-top:auto;
+    }
 
-.chat-header{
-  height:76px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  background:var(--bg);
-  transition:background .25s,border-color .25s;
-}
+    /* =========================
+       MAIN
+       ========================= */
 
-.chat-header-title{
-  color:var(--orange) !important;
-  text-decoration:none !important;
-  font-size:20px;
-  font-weight:700;
-}
+    .main{
+      flex:1;
+      min-width:0;
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:var(--bg);
+      transition:background .25s ease;
+    }
 
-.mode-info{
-  color:var(--dim);
-  font-size:13px;
-}
+    .topbar{
+      height:74px;
+      border-bottom:1px solid var(--border);
+      background:var(--panel);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 30px;
+      transition:
+        background .25s ease,
+        border-color .25s ease;
+    }
 
-.messages{
-  flex:1;
-  overflow-y:auto;
-  padding:55px 20px 120px;
-}
+    .top-title{
+      font-size:18px;
+      font-weight:750;
+      color:var(--text);
+    }
 
-.welcome{
-  max-width:720px;
-  margin:0 auto;
-  text-align:center;
-}
+    .top-title span{
+      color:var(--orange);
+    }
 
-.welcome img{
-  width:75px;
-  height:75px;
-  object-fit:contain;
-  margin-bottom:18px;
-}
+    .mode-info{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--dim);
+      font-size:13px;
+    }
 
-.welcome h1{
-  font-size:30px;
-  margin-bottom:10px;
-}
+    .mode-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--orange);
+      box-shadow:0 0 8px rgba(255,122,26,.55);
+    }
 
-.welcome p{
-  color:var(--dim);
-  font-size:15px;
-  line-height:1.5;
-}
+    /* =========================
+       CHAT AREA
+       ========================= */
 
-.profile-info{
-  margin:20px auto 0;
-  max-width:520px;
-  padding:11px 14px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  border-radius:10px;
-  color:var(--dim);
-  font-size:13px;
-}
+    .chat-area{
+      flex:1;
+      min-height:0;
+      overflow-y:auto;
+      padding:35px 20px 150px;
+    }
 
-/* =========================
-   MENSAGENS
-========================= */
+    .chat-content{
+      width:min(900px,100%);
+      margin:0 auto;
+    }
 
-.message{
-  max-width:720px;
-  margin:28px auto;
-}
+    .welcome{
+      min-height:calc(100vh - 280px);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+    }
 
-.message .name{
-  color:var(--orange-light);
-  font-size:14px;
-  margin-bottom:8px;
-  font-weight:bold;
-}
+    .welcome-logo{
+      width:90px;
+      height:90px;
+      object-fit:contain;
+      margin-bottom:20px;
+      filter:drop-shadow(0 0 18px rgba(255,122,26,.18));
+    }
 
-.message .bubble{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:15px 17px;
-  line-height:1.5;
-}
+    .welcome h1{
+      font-size:30px;
+      line-height:1.2;
+      margin-bottom:10px;
+      letter-spacing:-.7px;
+    }
 
-/* =========================
-   INPUT
-========================= */
+    .welcome h1 span{
+      color:var(--orange);
+    }
 
-.input-area{
-  padding:18px 25px 24px;
-  background:linear-gradient(
-    transparent,
-    var(--bg) 25%
-  );
-}
+    .welcome p{
+      color:var(--dim);
+      max-width:620px;
+      line-height:1.6;
+      font-size:15px;
+    }
 
-.input-box{
-  max-width:760px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  background:var(--panel2);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:8px;
-}
+    .profile-info{
+      margin-top:19px;
+      padding:10px 15px;
+      border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:10px;
+      color:var(--dim);
+      font-size:13px;
+      transition:
+        background .25s ease,
+        border-color .25s ease;
+    }
 
-.input-box:focus-within{
-  border-color:var(--orange);
-}
+    .profile-info strong{
+      color:var(--orange);
+    }
 
-.input-box textarea{
-  flex:1;
-  resize:none;
-  border:none;
-  outline:none;
-  background:transparent;
-  color:var(--text);
-  font-family:inherit;
-  font-size:15px;
-  padding:10px;
-  min-height:42px;
-  max-height:120px;
-}
+    /* =========================
+       MESSAGES
+       ========================= */
 
-.send{
-  width:43px;
-  height:43px;
-  border:none;
-  border-radius:10px;
-  background:var(--orange);
-  color:#160b04;
-  font-size:18px;
-  cursor:pointer;
-  font-weight:bold;
-}
+    .message{
+      display:flex;
+      gap:12px;
+      margin:0 auto 22px;
+      max-width:850px;
+    }
 
-.send:hover{
-  background:var(--orange-light);
-}
+    .message.user{
+      justify-content:flex-end;
+    }
 
-/* =========================
-   MODO CLARO
-========================= */
+    .avatar{
+      width:34px;
+      height:34px;
+      border-radius:9px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-shrink:0;
+      overflow:hidden;
+    }
 
-body.light{
-  --bg:#f5f2ef;
-  --sidebar:#ebe5df;
-  --panel:#ffffff;
-  --panel2:#f3efeb;
-  --border:#d7ccc2;
-  --text:#241b15;
-  --dim:#75685e;
-}
+    .avatar img{
+      width:27px;
+      height:27px;
+      object-fit:contain;
+    }
 
-body.light .menu .active{
-  background:#f7e3d3;
-  color:#d95f0a;
-}
+    .message.user .avatar{
+      order:2;
+      background:var(--orange);
+      border-color:var(--orange);
+      color:white;
+      font-size:14px;
+      font-weight:bold;
+    }
 
-/* =========================
-   RESPONSIVO
-========================= */
+    .bubble{
+      max-width:min(700px,78%);
+      padding:13px 16px;
+      border-radius:14px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      color:var(--text);
+      line-height:1.55;
+      font-size:14px;
+      white-space:pre-wrap;
+    }
 
-@media(max-width:750px){
+    .message.user .bubble{
+      background:var(--orange);
+      border-color:var(--orange);
+      color:#fff;
+    }
 
-  .sidebar{
-    width:205px;
-  }
+    /* =========================
+       INPUT
+       ========================= */
 
-  .chat-header{
-    padding:0 18px;
-  }
+    .input-area{
+      position:absolute;
+      left:250px;
+      right:0;
+      bottom:0;
+      padding:18px 25px 21px;
+      background:linear-gradient(
+        to top,
+        var(--bg) 65%,
+        transparent
+      );
+      pointer-events:none;
+    }
 
-  .mode-info{
-    display:none;
-  }
+    .input-wrap{
+      width:min(900px,100%);
+      margin:0 auto;
+      pointer-events:auto;
+    }
 
-}
+    .input-box{
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:15px;
+      padding:9px;
+      box-shadow:0 10px 35px rgba(0,0,0,.15);
+      transition:
+        background .25s ease,
+        border-color .25s ease;
+    }
 
-@media(max-width:560px){
+    .input-box:focus-within{
+      border-color:rgba(255,122,26,.55);
+      box-shadow:
+        0 0 0 3px rgba(255,122,26,.07),
+        0 10px 35px rgba(0,0,0,.15);
+    }
 
-  .sidebar{
-    width:175px;
-    padding:18px 10px;
-  }
+    textarea{
+      flex:1;
+      min-height:43px;
+      max-height:130px;
+      resize:none;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:var(--text);
+      font-family:inherit;
+      font-size:14px;
+      padding:12px 9px;
+    }
 
-  .logo-area{
-    padding-left:3px;
-  }
+    textarea::placeholder{
+      color:var(--dim);
+    }
 
-  .logo-area img{
-    width:40px;
-    height:40px;
-  }
+    .send-btn{
+      width:43px;
+      height:43px;
+      border:0;
+      border-radius:11px;
+      background:var(--orange);
+      color:#fff;
+      cursor:pointer;
+      font-size:19px;
+      transition:
+        transform .15s ease,
+        background .15s ease;
+    }
 
-  .brand-name{
-    font-size:17px;
-  }
+    .send-btn:hover{
+      background:var(--orange-light);
+      transform:translateY(-1px);
+    }
 
-  .menu button,
-  .menu a{
-    font-size:13px;
-    padding:11px 9px;
-  }
+    .input-note{
+      text-align:center;
+      color:var(--dim);
+      font-size:11px;
+      margin-top:8px;
+    }
 
-}
-</style>
+    /* =========================
+       RESPONSIVO
+       ========================= */
+
+    @media(max-width:750px){
+      .sidebar{
+        width:72px;
+        padding:18px 9px;
+      }
+
+      .brand{
+        justify-content:center;
+        padding-left:0;
+        padding-right:0;
+      }
+
+      .brand img{
+        width:45px;
+        height:45px;
+      }
+
+      .brand-name{
+        display:none;
+      }
+
+      .menu button,
+      .menu a{
+        justify-content:center;
+        padding:0;
+      }
+
+      .menu-icon{
+        font-size:19px;
+      }
+
+      .menu-label{
+        display:none;
+      }
+
+      .input-area{
+        left:72px;
+        padding-left:13px;
+        padding-right:13px;
+      }
+
+      .topbar{
+        padding:0 16px;
+      }
+
+      .mode-info{
+        font-size:11px;
+      }
+
+      .welcome h1{
+        font-size:25px;
+      }
+
+      .bubble{
+        max-width:84%;
+      }
+    }
+
+    @media(max-width:500px){
+      .top-title{
+        font-size:16px;
+      }
+
+      .mode-info{
+        display:none;
+      }
+
+      .chat-area{
+        padding-top:20px;
+      }
+
+      .welcome{
+        min-height:calc(100vh - 260px);
+      }
+
+      .welcome-logo{
+        width:75px;
+        height:75px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="app">
+  <div class="app">
 
-  <!-- SIDEBAR -->
+    <!-- =========================
+         SIDEBAR
+         ========================= -->
 
-  <aside class="sidebar">
+    <aside class="sidebar">
 
-    <div class="logo-area">
-      <img src="vetrix-favicon-novo.png" alt="Vetrix AI">
-      <a href="chat.html" class="brand-name">Vetrix AI</a>
-    </div>
-
-    <nav class="menu">
-
-      <button class="active" onclick="newChat()">
-        ＋ Novo chat
-      </button>
-
-      <button onclick="showHistory()">
-        ◷ Histórico
-      </button>
-
-      <a href="configuracoes.html">
-        ⚙ Configurações
-      </a>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-
-      <button onclick="showHelp()">
-        ❔ Ajuda
-      </button>
-
-    </div>
-
-  </aside>
-
-
-  <!-- CHAT -->
-
-  <main class="chat">
-
-    <header class="chat-header">
-
-      <a href="chat.html" class="chat-header-title">
-        Vetrix AI
-      </a>
-
-      <span id="modeInfo" class="mode-info"></span>
-
-    </header>
-
-
-    <section class="messages" id="messages">
-
-      <div class="welcome" id="welcome">
-
+      <div class="brand">
         <img src="vetrix-favicon-novo.png" alt="Vetrix AI">
+        <a class="brand-name" href="chat.html">Vetrix AI</a>
+      </div>
 
-        <h1 id="welcomeTitle">
-          Olá! Eu sou o Vetrix AI.
-        </h1>
+      <nav class="menu">
 
-        <p id="welcomeText">
-          Posso ajudar você a estudar, aprender e tirar dúvidas.
-        </p>
+        <button class="active" onclick="newChat()">
+          <span class="menu-icon">＋</span>
+          <span class="menu-label">Novo chat</span>
+        </button>
 
-        <div id="profileInfo" class="profile-info"></div>
+        <button onclick="showHistory()">
+          <span class="menu-icon">◷</span>
+          <span class="menu-label">Histórico</span>
+        </button>
+
+        <a href="configuracoes.html">
+          <span class="menu-icon">⚙</span>
+          <span class="menu-label">Configurações</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+
+        <nav class="menu">
+          <button onclick="showHelp()">
+            <span class="menu-icon">❔</span>
+            <span class="menu-label">Ajuda</span>
+          </button>
+        </nav>
 
       </div>
 
-    </section>
+    </aside>
 
 
-    <div class="input-area">
+    <!-- =========================
+         MAIN
+         ========================= -->
+
+    <main class="main">
+
+      <header class="topbar">
+
+        <div class="top-title">
+          <span>Vetrix</span> AI
+        </div>
+
+        <div class="mode-info">
+          <span class="mode-dot"></span>
+          <span id="modeText">Modo estudo</span>
+        </div>
+
+      </header>
+
+
+      <section class="chat-area" id="chatArea">
+
+        <div class="chat-content" id="chatContent">
+
+          <div class="welcome" id="welcome">
+
+            <img
+              class="welcome-logo"
+              src="vetrix-favicon-novo.png"
+              alt="Vetrix AI"
+            >
+
+            <h1 id="welcomeTitle">
+              Olá! Eu sou o <span>Vetrix AI</span>.
+            </h1>
+
+            <p id="welcomeText">
+              Estou aqui para ajudar você a estudar, entender assuntos,
+              organizar ideias e aprender de forma mais simples.
+            </p>
+
+            <div class="profile-info" id="profileInfo">
+              <strong>Modo estudo</strong> ativado.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================
+       INPUT
+       ========================= -->
+
+  <div class="input-area">
+
+    <div class="input-wrap">
 
       <div class="input-box">
 
@@ -442,446 +635,608 @@ body.light .menu .active{
           placeholder="Digite sua mensagem..."
           rows="1"
           onkeydown="handleKey(event)"
+          oninput="autoResize(this)"
         ></textarea>
 
-        <button class="send" onclick="sendMessage()">
+        <button
+          class="send-btn"
+          onclick="sendMessage()"
+          aria-label="Enviar"
+        >
           ➤
         </button>
 
       </div>
 
+      <div class="input-note">
+        O Vetrix pode cometer erros. Confira informações importantes.
+      </div>
+
     </div>
 
-  </main>
-
-</div>
+  </div>
 
 
-<script>
+  <script>
+    /* =========================================================
+       CONFIGURAÇÕES
+       ========================================================= */
 
-/* =========================
-   CONFIGURAÇÕES
-========================= */
-
-const defaultSettings = {
-  theme:"dark",
-  course:"",
-  specificCourse:"",
-  reason:"",
-  mode:"Modo estudo",
-  sensitiveProtection:true,
-  parentalControl:false,
-  conversationLimit:"60",
-  storage:true,
-  notifications:true,
-  voiceTone:"Natural",
-  language:"pt-BR"
-};
-
-function getSettings(){
-
-  try{
-
-    const saved =
-      JSON.parse(
-        localStorage.getItem("vetrixSettings")
-      );
-
-    return {
-      ...defaultSettings,
-      ...(saved || {})
+    const defaultSettings = {
+      theme: "dark",
+      course: "",
+      specificCourse: "",
+      reason: "",
+      mode: "Modo estudo",
+      sensitiveProtection: true,
+      parentalControl: false,
+      conversationLimit: "60",
+      storage: true,
+      notifications: true,
+      voiceTone: "Natural",
+      language: "pt-BR"
     };
 
-  }catch(error){
 
-    return {...defaultSettings};
-
-  }
-
-}
-
-
-/* =========================
-   TEMA
-========================= */
-
-function applyTheme(){
-
-  const settings = getSettings();
-
-  document.body.classList.toggle(
-    "light",
-    settings.theme === "light"
-  );
-
-}
-
-
-/* =========================
-   INFORMAÇÕES DO CHAT
-========================= */
-
-function updateInterface(){
-
-  const settings = getSettings();
-
-  const modeInfo =
-    document.getElementById("modeInfo");
-
-  const welcomeTitle =
-    document.getElementById("welcomeTitle");
-
-  const welcomeText =
-    document.getElementById("welcomeText");
-
-  const profileInfo =
-    document.getElementById("profileInfo");
-
-  const input =
-    document.getElementById("messageInput");
-
-
-  /* MODO */
-
-  if(settings.mode === "Modo base"){
-
-    modeInfo.textContent = "Modo base";
-
-    welcomeTitle.textContent =
-      "Olá! Eu sou o Vetrix AI.";
-
-    welcomeText.textContent =
-      "Posso ajudar você com perguntas, ideias, informações e muito mais.";
-
-    input.placeholder =
-      "Pergunte alguma coisa...";
-
-  }else{
-
-    modeInfo.textContent =
-      "📚 Modo estudo";
-
-    welcomeTitle.textContent =
-      "Olá! Vamos estudar?";
-
-    welcomeText.textContent =
-      "Posso explicar assuntos, ajudar em atividades e tornar seus estudos mais fáceis.";
-
-    input.placeholder =
-      "Digite sua dúvida de estudo...";
-
-  }
-
-
-  /* CURSO E MOTIVO */
-
-  const parts = [];
-
-  if(settings.course){
-    parts.push(settings.course);
-  }
-
-  if(settings.specificCourse){
-    parts.push(settings.specificCourse);
-  }
-
-  if(settings.reason &&
-     settings.reason !== settings.course){
-
-    parts.push("Uso: " + settings.reason);
-
-  }
-
-  if(parts.length){
-
-    profileInfo.textContent =
-      "Perfil: " + parts.join(" • ");
-
-    profileInfo.style.display =
-      "block";
-
-  }else{
-
-    profileInfo.style.display =
-      "none";
-
-  }
-
-
-  /* IDIOMA */
-
-  if(settings.language === "en"){
-
-    welcomeText.textContent =
-      "I can help you learn, understand subjects and answer your questions.";
-
-  }
-
-  if(settings.language === "es"){
-
-    welcomeText.textContent =
-      "Puedo ayudarte a estudiar, aprender y responder tus preguntas.";
-
-  }
-
-}
-
-
-/* =========================
-   ENVIAR MENSAGEM
-========================= */
-
-function sendMessage(){
-
-  const input =
-    document.getElementById("messageInput");
-
-  const text =
-    input.value.trim();
-
-  if(!text) return;
-
-
-  const settings =
-    getSettings();
-
-  const welcome =
-    document.getElementById("welcome");
-
-  if(welcome){
-    welcome.remove();
-  }
-
-
-  const messages =
-    document.getElementById("messages");
-
-
-  const userMessage =
-    document.createElement("div");
-
-  userMessage.className =
-    "message";
-
-  userMessage.innerHTML = `
-    <div class="name">Você</div>
-    <div class="bubble">${escapeHTML(text)}</div>
-  `;
-
-  messages.appendChild(userMessage);
-
-  input.value = "";
-
-
-  /* RESPOSTA DE DEMONSTRAÇÃO */
-
-  setTimeout(() => {
-
-    const vetrixMessage =
-      document.createElement("div");
-
-    vetrixMessage.className =
-      "message";
-
-
-    let response =
-      "Esta é uma resposta de demonstração do Vetrix AI.";
-
-    if(settings.mode === "Modo estudo"){
-
-      response =
-        "Estou no Modo estudo. Quando a API real estiver conectada, vou adaptar minhas respostas ao seu nível de estudo.";
-
+    function getSettings(){
+      try{
+        const saved = JSON.parse(
+          localStorage.getItem("vetrixSettings") || "{}"
+        );
+
+        return {
+          ...defaultSettings,
+          ...saved
+        };
+
+      }catch(error){
+        return {...defaultSettings};
+      }
     }
 
 
-    if(settings.mode === "Modo base"){
-
-      response =
-        "Estou no Modo base. Quando a API real estiver conectada, vou responder às suas perguntas normalmente.";
-
-    }
+    let settings = getSettings();
 
 
-    vetrixMessage.innerHTML = `
-      <div class="name">Vetrix AI</div>
-      <div class="bubble">${response}</div>
-    `;
+    /* =========================================================
+       TEMA
+       ========================================================= */
 
+    function applyTheme(currentSettings = getSettings()){
 
-    messages.appendChild(vetrixMessage);
+      settings = currentSettings;
 
-    messages.scrollTop =
-      messages.scrollHeight;
-
-
-    /* SALVAR HISTÓRICO */
-
-    if(settings.storage){
-
-      saveMessage(text,response);
-
-    }
-
-  },500);
-
-}
-
-
-/* =========================
-   SALVAR HISTÓRICO
-========================= */
-
-function saveMessage(userText,vetrixText){
-
-  try{
-
-    const chats =
-      JSON.parse(
-        localStorage.getItem("vetrixChats") || "[]"
+      document.body.classList.toggle(
+        "light",
+        settings.theme === "light"
       );
+    }
 
-    chats.push({
 
-      user:userText,
-      vetrix:vetrixText,
-      date:new Date().toISOString()
+    /* =========================================================
+       SINCRONIZAÇÃO DO TEMA ENTRE AS ABAS
+       ========================================================= */
+
+    let vetrixChannel = null;
+
+    if("BroadcastChannel" in window){
+
+      vetrixChannel = new BroadcastChannel("vetrix_settings");
+
+      vetrixChannel.onmessage = function(event){
+
+        if(
+          event.data &&
+          event.data.type === "themeChanged"
+        ){
+
+          const newTheme = event.data.theme;
+
+          settings = {
+            ...getSettings(),
+            theme: newTheme
+          };
+
+          applyTheme(settings);
+
+        }
+
+      };
+
+    }
+
+
+    /* =========================================================
+       STORAGE EVENT
+       ========================================================= */
+
+    window.addEventListener("storage", function(event){
+
+      if(event.key === "vetrixSettings"){
+
+        settings = getSettings();
+
+        applyTheme(settings);
+
+        updateInterface();
+
+      }
 
     });
 
-    localStorage.setItem(
-      "vetrixChats",
-      JSON.stringify(chats)
-    );
 
-  }catch(error){
+    /* =========================================================
+       INTERFACE
+       ========================================================= */
 
-    console.log("Não foi possível salvar o histórico.");
+    function updateInterface(){
 
-  }
+      settings = getSettings();
 
-}
+      const modeText =
+        document.getElementById("modeText");
+
+      const welcomeTitle =
+        document.getElementById("welcomeTitle");
+
+      const welcomeText =
+        document.getElementById("welcomeText");
+
+      const profileInfo =
+        document.getElementById("profileInfo");
+
+      const input =
+        document.getElementById("messageInput");
 
 
-/* =========================
-   NOVO CHAT
-========================= */
-
-function newChat(){
-
-  location.reload();
-
-}
+      const isStudy =
+        settings.mode === "Modo estudo";
 
 
-/* =========================
-   HISTÓRICO
-========================= */
+      if(modeText){
 
-function showHistory(){
+        modeText.textContent =
+          isStudy
+            ? "Modo estudo"
+            : "Modo base";
 
-  const settings =
-    getSettings();
+      }
 
-  if(!settings.storage){
 
-    alert(
-      "O armazenamento do histórico está desativado nas configurações."
-    );
+      if(isStudy){
 
-    return;
+        if(welcomeTitle){
 
-  }
+          welcomeTitle.innerHTML =
+            'Olá! Eu sou o <span>Vetrix AI</span>.';
 
-  let chats = [];
+        }
 
-  try{
+        if(welcomeText){
 
-    chats =
-      JSON.parse(
-        localStorage.getItem("vetrixChats") || "[]"
+          welcomeText.textContent =
+            "Estou aqui para ajudar você a estudar, entender assuntos, organizar ideias e aprender de forma mais simples.";
+
+        }
+
+        if(profileInfo){
+
+          let courseText =
+            settings.specificCourse ||
+            settings.course ||
+            settings.reason ||
+            "seus estudos";
+
+          profileInfo.innerHTML =
+            "<strong>Modo estudo</strong> ativado · " +
+            escapeHTML(courseText) +
+            ".";
+
+        }
+
+        if(input){
+
+          input.placeholder =
+            "Digite o que você quer estudar...";
+
+        }
+
+      }else{
+
+        if(welcomeTitle){
+
+          welcomeTitle.innerHTML =
+            'Olá! Eu sou o <span>Vetrix AI</span>.';
+
+        }
+
+        if(welcomeText){
+
+          welcomeText.textContent =
+            "Estou aqui para responder perguntas, ajudar com ideias e facilitar suas tarefas.";
+
+        }
+
+        if(profileInfo){
+
+          profileInfo.innerHTML =
+            "<strong>Modo base</strong> ativado.";
+
+        }
+
+        if(input){
+
+          input.placeholder =
+            "Digite sua mensagem...";
+
+        }
+
+      }
+
+    }
+
+
+    /* =========================================================
+       NOVO CHAT
+       ========================================================= */
+
+    function newChat(){
+
+      const content =
+        document.getElementById("chatContent");
+
+      content.innerHTML = `
+
+        <div class="welcome" id="welcome">
+
+          <img
+            class="welcome-logo"
+            src="vetrix-favicon-novo.png"
+            alt="Vetrix AI"
+          >
+
+          <h1 id="welcomeTitle">
+            Olá! Eu sou o <span>Vetrix AI</span>.
+          </h1>
+
+          <p id="welcomeText">
+            Estou aqui para ajudar você a estudar, entender assuntos,
+            organizar ideias e aprender de forma mais simples.
+          </p>
+
+          <div class="profile-info" id="profileInfo">
+            <strong>Modo estudo</strong> ativado.
+          </div>
+
+        </div>
+
+      `;
+
+      updateInterface();
+
+      document
+        .getElementById("messageInput")
+        .focus();
+
+    }
+
+
+    /* =========================================================
+       ENVIAR MENSAGEM
+       ========================================================= */
+
+    function sendMessage(){
+
+      const input =
+        document.getElementById("messageInput");
+
+      const text =
+        input.value.trim();
+
+      if(!text) return;
+
+
+      const welcome =
+        document.getElementById("welcome");
+
+      if(welcome){
+
+        welcome.remove();
+
+      }
+
+
+      const chatContent =
+        document.getElementById("chatContent");
+
+
+      /* Mensagem do usuário */
+
+      const userMessage =
+        document.createElement("div");
+
+      userMessage.className =
+        "message user";
+
+      userMessage.innerHTML = `
+
+        <div class="bubble">
+          ${escapeHTML(text)}
+        </div>
+
+        <div class="avatar">
+          Você
+        </div>
+
+      `;
+
+      chatContent.appendChild(userMessage);
+
+
+      input.value = "";
+
+      input.style.height = "43px";
+
+
+      /* Resposta demonstrativa */
+
+      const botMessage =
+        document.createElement("div");
+
+      botMessage.className =
+        "message";
+
+      botMessage.innerHTML = `
+
+        <div class="avatar">
+          <img
+            src="vetrix-favicon-novo.png"
+            alt="Vetrix"
+          >
+        </div>
+
+        <div class="bubble">
+          ${getDemoResponse(text)}
+        </div>
+
+      `;
+
+      chatContent.appendChild(botMessage);
+
+
+      scrollToBottom();
+
+
+      /* Salvar histórico */
+
+      if(settings.storage){
+
+        saveChat(text);
+
+      }
+
+    }
+
+
+    /* =========================================================
+       RESPOSTA TEMPORÁRIA
+       ========================================================= */
+
+    function getDemoResponse(text){
+
+      if(settings.mode === "Modo base"){
+
+        return `
+          Entendi! Você escreveu:<br><br>
+          <strong>${escapeHTML(text)}</strong><br><br>
+          O sistema de IA real ainda não está conectado.
+          Quando a API do Vetrix estiver configurada, eu poderei
+          responder sua mensagem de verdade.
+        `;
+
+      }
+
+
+      return `
+        Vamos estudar isso juntos! 📚<br><br>
+        Você perguntou sobre:
+        <strong>${escapeHTML(text)}</strong><br><br>
+        A conexão com a IA real ainda está sendo configurada.
+        Por enquanto, esta é uma resposta de demonstração do Vetrix.
+      `;
+
+    }
+
+
+    /* =========================================================
+       SALVAR CHAT
+       ========================================================= */
+
+    function saveChat(message){
+
+      try{
+
+        const chats =
+          JSON.parse(
+            localStorage.getItem("vetrixChats") || "[]"
+          );
+
+        chats.push({
+
+          message:message,
+
+          mode:settings.mode,
+
+          date:new Date().toISOString()
+
+        });
+
+
+        localStorage.setItem(
+          "vetrixChats",
+          JSON.stringify(chats)
+        );
+
+      }catch(error){
+
+        console.log(
+          "Não foi possível salvar o histórico."
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       HISTÓRICO
+       ========================================================= */
+
+    function showHistory(){
+
+      const chats =
+        JSON.parse(
+          localStorage.getItem("vetrixChats") || "[]"
+        );
+
+
+      if(!chats.length){
+
+        alert(
+          "Ainda não há conversas salvas no histórico."
+        );
+
+        return;
+
+      }
+
+
+      let text =
+        "Histórico recente:\n\n";
+
+
+      const recent =
+        chats.slice(-10).reverse();
+
+
+      recent.forEach((chat,index)=>{
+
+        const date =
+          new Date(chat.date);
+
+        text +=
+          `${index + 1}. ${chat.message}\n`;
+
+        text +=
+          `   ${date.toLocaleString("pt-BR")}\n\n`;
+
+      });
+
+
+      alert(text);
+
+    }
+
+
+    /* =========================================================
+       AJUDA
+       ========================================================= */
+
+    function showHelp(){
+
+      alert(
+        "Como usar o Vetrix:\n\n" +
+        "• Digite uma pergunta no campo de mensagem.\n" +
+        "• Use Novo chat para começar uma conversa nova.\n" +
+        "• O Histórico mostra mensagens salvas.\n" +
+        "• Em Configurações você pode alterar o tema e outras opções.\n\n" +
+        "A IA real ainda será conectada ao Vetrix."
       );
 
-  }catch(error){}
+    }
 
 
-  if(!chats.length){
+    /* =========================================================
+       TECLADO
+       ========================================================= */
 
-    alert(
-      "Você ainda não possui conversas salvas."
-    );
+    function handleKey(event){
 
-    return;
+      if(
+        event.key === "Enter" &&
+        !event.shiftKey
+      ){
 
-  }
+        event.preventDefault();
 
+        sendMessage();
 
-  alert(
-    "Você possui " +
-    chats.length +
-    " mensagem(ns) registrada(s) no histórico."
-  );
+      }
 
-}
-
-
-/* =========================
-   AJUDA
-========================= */
-
-function showHelp(){
-
-  alert(
-    "Você pode personalizar o Vetrix em ⚙ Configurações."
-  );
-
-}
+    }
 
 
-/* =========================
-   ENTER
-========================= */
+    /* =========================================================
+       AUTO RESIZE
+       ========================================================= */
 
-function handleKey(event){
+    function autoResize(textarea){
 
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey
-  ){
+      textarea.style.height = "43px";
 
-    event.preventDefault();
+      textarea.style.height =
+        Math.min(
+          textarea.scrollHeight,
+          130
+        ) + "px";
 
-    sendMessage();
-
-  }
-
-}
+    }
 
 
-/* =========================
-   SEGURANÇA
-========================= */
+    /* =========================================================
+       ROLAR PARA BAIXO
+       ========================================================= */
 
-function escapeHTML(text){
+    function scrollToBottom(){
 
-  const div =
-    document.createElement("div");
+      const area =
+        document.getElementById("chatArea");
 
-  div.textContent = text;
+      setTimeout(()=>{
 
-  return div.innerHTML;
+        area.scrollTop =
+          area.scrollHeight;
 
-}
+      },50);
+
+    }
 
 
-/* =========================
-   INICIALIZAÇÃO
-========================= */
+    /* =========================================================
+       SEGURANÇA DO HTML
+       ========================================================= */
 
-applyTheme();
-updateInterface();
+    function escapeHTML(text){
 
-</script>
+      return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    /* =========================================================
+       INICIALIZAÇÃO
+       ========================================================= */
+
+    applyTheme(settings);
+
+    updateInterface();
+
+  </script>
 
 </body>
 </html>
