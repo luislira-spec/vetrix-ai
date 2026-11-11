@@ -2,64 +2,356 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0a09">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Vetrix AI">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090807">
 <title>Vetrix AI</title>
-<link rel="icon" type="image/png" href="vetrix-favicon-novo.png">
+<link rel="icon" href="vetrix-favicon-novo.png">
 <style>
-:root{--bg:#0b0a09;--panel:#12100e;--border:#33271e;--orange:#ff7a1a;--text:#f7f2ed;--muted:#aaa099}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-.top{height:76px;padding:0 34px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;background:rgba(11,10,9,.95);backdrop-filter:blur(16px);border-bottom:1px solid #241c16}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}.brand img{width:38px;height:38px;object-fit:contain}.ai{color:var(--orange)}
-.nav{display:flex;gap:26px;color:#bdb4ad;font-size:14px}.nav a:first-child{color:var(--orange)}
-.actions{display:flex;gap:9px}.btn{border:1px solid var(--border);background:#15120f;color:var(--text);border-radius:11px;padding:9px 14px;font-weight:700}.primary{background:var(--orange);color:#1b0d04;border-color:var(--orange)}
-.hero{max-width:900px;margin:auto;text-align:center;padding:65px 20px 38px}.hero img{width:105px;height:105px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(255,122,26,.22))}.hero h1{font-size:clamp(45px,8vw,76px);line-height:1;margin:17px 0;letter-spacing:-2px}.hero p{max-width:650px;margin:auto;color:var(--muted);font-size:18px;line-height:1.55}.cta{margin-top:27px;border:0;border-radius:14px;padding:15px 24px;background:var(--orange);color:#1b0d04;font-weight:800}
-.main{max-width:1000px;margin:auto;padding:18px 20px 110px}.greet{background:linear-gradient(135deg,#17130f,#100e0c);border:1px solid var(--border);border-radius:20px;padding:22px;margin-bottom:22px}.greet small{color:var(--orange);font-weight:800}.greet h2{margin:7px 0;font-size:27px}.greet p{margin:0;color:var(--muted)}
-h2.section{font-size:20px;margin:23px 0 12px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.card{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:17px;text-align:left;min-height:125px;color:var(--text)}.card .ico{font-size:24px}.card h3{margin:10px 0 5px;font-size:16px}.card p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
-.cont{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:17px}.cont h3{margin:0 0 4px}.cont p{margin:0;color:var(--muted);font-size:13px}.cont button{border:1px solid var(--orange);background:transparent;color:var(--orange);border-radius:10px;padding:9px 12px;font-weight:800}
-.resources{display:flex;gap:9px;overflow:auto}.res{min-width:110px;border:1px solid var(--border);background:var(--panel);color:#d5cdc7;border-radius:14px;padding:14px 10px;text-align:center}.res span{display:block;font-size:21px;margin-bottom:6px}
-.bottom{display:none}
-@media(max-width:760px){
-.top{height:66px;padding:0 15px}.brand{font-size:17px}.brand img{width:32px;height:32px}.nav{display:none}.actions .about{display:none}.btn{padding:8px 12px;font-size:13px}
-.hero{padding:40px 18px 26px}.hero img{width:82px;height:82px}.hero h1{font-size:45px;margin:13px 0}.hero p{font-size:15px}.cta{width:100%;margin-top:22px}
-.main{padding:9px 15px 105px}.greet{padding:19px;border-radius:18px}.greet h2{font-size:24px}.quick{grid-template-columns:repeat(2,1fr);gap:9px}.card{padding:14px;min-height:126px}.cont{padding:15px}.cont button{white-space:nowrap}.bottom{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:rgba(12,10,9,.97);border-top:1px solid #2b2119;justify-content:space-around}.bottom button{border:0;background:transparent;color:#8f8781;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px}.bottom span{font-size:20px}.bottom .sel{color:var(--orange)}
+:root {
+  --bg: #090807;
+  --panel: #110d0a;
+  --panel2: #15100c;
+  --border: #3a2518;
+  --orange: #ff7a1a;
+  --text: #f4eee8;
+  --muted: #a99b8f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+body.light {
+  --bg: #f5f2ef;
+  --panel: #fff;
+  --panel2: #f1ece7;
+  --border: #d8c9bc;
+  --text: #241b15;
+  --muted: #75685e;
+}
+
+header {
+  height: 76px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.orange {
+  color: var(--orange);
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 9px;
+}
+
+.btn,
+.primary {
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 11px 16px;
+  background: var(--panel2);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.primary {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #211006;
+}
+
+.hero {
+  max-width: 850px;
+  margin: 75px auto 45px;
+  padding: 0 22px;
+  text-align: center;
+}
+
+.hero img {
+  width: 95px;
+  height: 95px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px #ff7a1a33);
+}
+
+h1 {
+  font-size: clamp(42px, 8vw, 72px);
+  margin: 18px 0 12px;
+  letter-spacing: -2px;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 650px;
+  margin: auto;
+}
+
+.hero .primary {
+  display: inline-block;
+  margin-top: 26px;
+  padding: 15px 24px;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 0 22px 80px;
+}
+
+.welcome {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  background: linear-gradient(135deg, var(--panel2), var(--panel));
+  margin-bottom: 30px;
+}
+
+.welcome small {
+  color: var(--orange);
+  font-weight: bold;
+}
+
+.welcome h2 {
+  margin: 8px 0;
+}
+
+.welcome p {
+  margin: 0;
+  color: var(--muted);
+}
+
+h2.section {
+  font-size: 20px;
+  margin: 26px 0 13px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 18px;
+  text-align: left;
+  color: var(--text);
+  min-height: 140px;
+}
+
+.card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+
+.card .ico {
+  font-size: 25px;
+}
+
+.card h3 {
+  margin: 12px 0 6px;
+}
+
+.card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 26px;
+}
+
+@media(max-width:720px) {
+  header {
+    padding: 0 15px;
+    height: 66px;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+
+  .brand img {
+    width: 34px;
+    height: 34px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .actions .btn {
+    display: none;
+  }
+
+  .hero {
+    margin: 48px auto 35px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main {
+    padding: 0 15px 50px;
+  }
 }
 </style>
 </head>
+
 <body>
-<header class="top">
-<a class="brand" href="index.html"><img src="vetrix-logo-final.png" alt="Vetrix AI"><span>VETRIX <span class="ai">AI</span></span></a>
-<nav class="nav"><a href="index.html">Início</a><a href="chat.html">Chat</a><a href="#recursos">Recursos</a><a href="#sobre">Sobre</a></nav>
-<div class="actions"><button class="btn about" onclick="document.getElementById('sobre').scrollIntoView()">Sobre</button><button class="btn" onclick="location.href='chat.html'">Entrar</button></div>
+
+<header>
+  <a class="brand" href="index.html">
+    <img src="vetrix-logo-final.png" alt="">
+    <span>VETRIX <span class="orange">AI</span></span>
+  </a>
+
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="chat.html">Chat</a>
+    <a href="#recursos">Recursos</a>
+  </nav>
+
+  <div class="actions">
+    <a class="btn" href="configuracoes.html">Configurações</a>
+    <a class="primary" href="chat.html">Entrar</a>
+  </div>
 </header>
+
 <section class="hero">
-<img src="vetrix-logo-final.png" alt="Logo Vetrix AI">
-<h1>VETRIX <span class="ai">AI</span></h1>
-<p>Uma inteligência artificial criada para ajudar você a aprender, criar, resolver e ir mais longe.</p>
-<button class="cta" onclick="location.href='chat.html'">Começar agora →</button>
+  <img src="vetrix-logo-final.png" alt="Logo Vetrix AI">
+
+  <h1>VETRIX <span class="orange">AI</span></h1>
+
+  <p>
+    Uma inteligência artificial criada para ajudar você
+    a aprender, criar, pesquisar e desenvolver suas ideias.
+  </p>
+
+  <a class="primary" href="chat.html">Começar agora →</a>
 </section>
-<main class="main">
-<div class="greet"><small>SEU ESPAÇO VETRIX</small><h2>Olá, Luís 👋</h2><p>Estude. Crie. Pesquise. Resolva.</p></div>
-<h2 class="section">Ações rápidas</h2>
-<div class="quick">
-<button class="card" onclick="go('Explique este assunto para mim de forma simples.')"><div class="ico">📚</div><h3>Estudar</h3><p>Explicações, resumos e exercícios.</p></button>
-<button class="card" onclick="go('Me ajude a criar uma ideia de projeto.')"><div class="ico">✨</div><h3>Criar</h3><p>Textos, ideias, projetos e muito mais.</p></button>
-<button class="card" onclick="go('Pesquise e me explique este assunto.')"><div class="ico">🔎</div><h3>Pesquisar</h3><p>Encontre e organize informações.</p></button>
-<button class="card" onclick="go('Me ajude com um código ou projeto de programação.')"><div class="ico">💻</div><h3>Programar</h3><p>Código, sites e tecnologia.</p></button>
-</div>
-<h2 class="section">Continue de onde parou</h2>
-<div class="cont"><div><h3>Trabalho de Ciências</h3><p>Última atividade: ontem</p></div><button onclick="go('Quero continuar meu Trabalho de Ciências.')">Continuar →</button></div>
-<h2 class="section" id="recursos">Recursos</h2>
-<div class="resources">
-<button class="res" onclick="go('Quero conversar sobre jogos.')"><span>🎮</span>Jogos</button><button class="res" onclick="go('Me dê ideias de memes.')"><span>😂</span>Memes</button><button class="res" onclick="go('Me ajude a organizar um evento.')"><span>📅</span>Eventos</button><button class="res" onclick="go('Quero saber sobre shows.')"><span>🎤</span>Shows</button><button class="res" onclick="go('Me ajude com recursos do computador.')"><span>🖥️</span>Computador</button><button class="res" onclick="go('O que mais posso fazer com o Vetrix?')"><span>＋</span>E muito mais!</button>
-</div>
-<p id="sobre" style="margin:28px 0 0;color:var(--muted);font-size:13px"><b style="color:var(--text)">Vetrix AI</b> — aprender, criar, pesquisar e resolver.</p>
+
+<main>
+
+  <div class="welcome">
+    <small>SEU ESPAÇO VETRIX</small>
+    <h2>Olá! Que bom ter você aqui.</h2>
+    <p>Seu espaço para estudar, criar e explorar novas ideias.</p>
+  </div>
+
+  <h2 class="section" id="recursos">O que você quer fazer?</h2>
+
+  <div class="cards">
+
+    <button class="card" onclick="openChat('Quero estudar um assunto. Explique de forma simples.')">
+      <div class="ico">📚</div>
+      <h3>Estudar</h3>
+      <p>Explicações, resumos e exercícios.</p>
+    </button>
+
+    <button class="card" onclick="openChat('Quero ajuda para criar uma ideia ou projeto.')">
+      <div class="ico">✨</div>
+      <h3>Criar</h3>
+      <p>Ideias, textos e projetos.</p>
+    </button>
+
+    <button class="card" onclick="openChat('Quero pesquisar um assunto.')">
+      <div class="ico">🔎</div>
+      <h3>Pesquisar</h3>
+      <p>Organize informações e dúvidas.</p>
+    </button>
+
+    <button class="card" onclick="openChat('Quero ajuda com programação.')">
+      <div class="ico">💻</div>
+      <h3>Programar</h3>
+      <p>Código, sites e tecnologia.</p>
+    </button>
+
+  </div>
+
+  <p class="note">
+    Aviso: esta versão contém a interface e funções locais do Vetrix.
+    Para respostas reais de IA, será necessário conectar um serviço
+    de IA por meio de um backend seguro.
+  </p>
+
 </main>
-<nav class="bottom"><button class="sel" onclick="location.href='index.html'"><span>⌂</span>Início</button><button onclick="location.href='chat.html'"><span>◌</span>Chat</button><button onclick="alert('Histórico será conectado na próxima etapa.')"><span>◷</span>Histórico</button><button onclick="alert('Configurações serão conectadas na próxima etapa.')"><span>⚙</span>Configurações</button><button onclick="alert('Ajuda será conectada na próxima etapa.')"><span>?</span>Ajuda</button></nav>
-<script>function go(t){localStorage.setItem('vetrixMensagemInicial',t);location.href='chat.html'}</script>
+
+<script>
+const KEY = 'vetrixSettings';
+
+try {
+  const settings = JSON.parse(localStorage.getItem(KEY) || '{}');
+
+  if (settings.theme === 'light') {
+    document.body.classList.add('light');
+  }
+} catch(e) {}
+
+function openChat(message) {
+  sessionStorage.setItem('vetrixInitialMessage', message);
+  location.href = 'chat.html';
+}
+</script>
+
 </body>
 </html>
